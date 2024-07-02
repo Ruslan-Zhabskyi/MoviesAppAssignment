@@ -88,3 +88,28 @@ export interface UpcomingMovies {
     total_results: number;
     results: BaseMovieProps[];
 }
+
+export interface BasePeopleProps {
+    name: string;
+    original_name: string;
+    id: number;
+    gender: number;
+    popularity: number;
+    profile_path: string;
+}
+
+export interface BasePeopleListProps {
+    people: BasePeopleProps[];
+    action: (m: BasePeopleProps) => React.ReactNode;
+}
+
+export interface PeopleListPageTemplateProps extends BasePeopleListProps {
+    name: string;
+}
+
+export interface DiscoverPeople {
+    page: number;
+    total_pages: number;
+    total_results: number;
+    results: BasePeopleListProps[];
+}

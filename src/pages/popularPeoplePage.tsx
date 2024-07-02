@@ -1,18 +1,18 @@
 import React from "react";
-import PageTemplate from "../components/templateMovieListPage";
-import {getUpcomingMovies} from "../api/tmdb-api";
+import PageTemplate from "../components/templatePeopleListPage";
+import {getPeople} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import {BaseMovieProps, UpcomingMovies} from "../types/interfaces";
+import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
 
 const titleFiltering = {
-    name: "title",
+    name: "name",
     value: "",
     condition: titleFilter,
 };
@@ -23,7 +23,7 @@ const genreFiltering = {
 };
 
 const PopularPeoplePage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<UpcomingMovies, Error>("upcoming", getUpcomingMovies);
+    const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -46,8 +46,8 @@ const PopularPeoplePage: React.FC = () => {
         setFilterValues(updatedFilterSet);
     };
 
-    const movies = data ? data.results : [];
-    const displayedMovies = filterFunction(movies);
+    const people = data ? data.results : [];
+    const displayedPeople = filterFunction(people);
 
     // Redundant, but necessary to avoid app crashing.
     //const favourites = movies.filter(m => m.favourite)
@@ -57,10 +57,10 @@ const PopularPeoplePage: React.FC = () => {
     return (
         <>
             <PageTemplate
-                title="Discover Movies"
-                movies={displayedMovies}
-                action={(movie: BaseMovieProps) => {
-                    return <AddToWatchListIcon {...movie} />
+                title="Popular People"
+                people={displayedPeople}
+                action={(person: BasePeopleProps) => {
+                    return <AddToWatchListIcon {...person} />
                 }}
             />
             <MovieFilterUI
