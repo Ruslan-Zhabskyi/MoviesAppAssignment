@@ -1,6 +1,6 @@
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { getMovies } from "../api/tmdb-api";
+import { getPopularMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
@@ -23,7 +23,7 @@ const genreFiltering = {
 };
 
 const PopularMoviesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("popular", getPopularMovies);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -49,15 +49,10 @@ const PopularMoviesPage: React.FC = () => {
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
 
-    // Redundant, but necessary to avoid app crashing.
-    //const favourites = movies.filter(m => m.favourite)
-    //localStorage.setItem("favourites", JSON.stringify(favourites));
-    //const addToFavourites = (movieId: number) => true;
-
     return (
         <>
             <PageTemplate
-                title="Discover Movies"
+                title="Popular Movies"
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToFavouritesIcon {...movie} />

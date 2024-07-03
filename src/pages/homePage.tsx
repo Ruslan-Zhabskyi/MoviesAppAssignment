@@ -49,11 +49,6 @@ const HomePage: React.FC = () => {
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
 
-    // Redundant, but necessary to avoid app crashing.
-    //const favourites = movies.filter(m => m.favourite)
-    //localStorage.setItem("favourites", JSON.stringify(favourites));
-    //const addToFavourites = (movieId: number) => true;
-
     return (
         <>
             <PageTemplate
