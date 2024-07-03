@@ -2,30 +2,24 @@ import React from "react";
 import PageTemplate from "../components/templatePeopleListPage";
 import {getPeople} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, {
-    titleFilter,
-    genreFilter,
-} from "../components/movieFilterUI";
+import UserFilterUI, {
+    nameFilter
+} from "../components/userFilterUI";
 import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
 
-const titleFiltering = {
+const nameFiltering = {
     name: "name",
     value: "",
-    condition: titleFilter,
-};
-const genreFiltering = {
-    name: "genre",
-    value: "0",
-    condition: genreFilter,
+    condition: nameFilter,
 };
 
 const PopularPeoplePage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
-        [titleFiltering, genreFiltering]
+        [nameFiltering]
     );
 
     if (isLoading) {
@@ -40,7 +34,7 @@ const PopularPeoplePage: React.FC = () => {
     const changeFilterValues = (type: string, value: string) => {
         const changedFilter = { name: type, value: value };
         const updatedFilterSet =
-            type === "title"
+            type === "name"
                 ? [changedFilter, filterValues[1]]
                 : [filterValues[0], changedFilter];
         setFilterValues(updatedFilterSet);
@@ -63,10 +57,9 @@ const PopularPeoplePage: React.FC = () => {
                     return <AddToWatchListIcon {...person} />
                 }}
             />
-            <MovieFilterUI
+            <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
-                titleFilter={filterValues[0].value}
-                genreFilter={filterValues[1].value}
+                nameFilter={filterValues[0].value}
             />
         </>
     );

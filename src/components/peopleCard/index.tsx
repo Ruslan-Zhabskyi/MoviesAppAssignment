@@ -22,7 +22,7 @@ const styles = {
 
 interface PeopleCardProps {
     person: BasePeopleProps;
-    action: (m: BasePeopleProps) => React.ReactNode;
+    action: (p: BasePeopleProps) => React.ReactNode;
 }
 
 const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
@@ -61,7 +61,6 @@ const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>
-                {action(person)}
                 <Link to={`/people/${person.id}`}>
                     <Button variant="outlined" size="medium" color="primary">
                         More Info ...
