@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FilterCard from "../filterMoviesCard";
+import FilterCard from "../filterPeopleCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { BasePeopleProps } from "../../types/interfaces";
@@ -21,7 +21,7 @@ const styles = {
 };
 
 interface PersonFilterUIProps {
-    onFilterValuesChange: (f: string) => void;
+    onFilterValuesChange: (p: string) => void;
     nameFilter: string;
 }
 
@@ -46,7 +46,7 @@ const UserFilterUI: React.FC<PersonFilterUIProps> = ({ onFilterValuesChange, nam
             >
                 <FilterCard
                     onUserInput={onFilterValuesChange}
-                    titleFilter={nameFilter}
+                    nameFilter={nameFilter}
                 />
             </Drawer>
         </>

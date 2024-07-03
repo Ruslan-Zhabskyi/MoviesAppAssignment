@@ -46,18 +46,12 @@ const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
             />
             <CardContent>
                 <Grid container>
-                    <Grid item xs={6}>
+
                         <Typography variant="h6" component="p">
-                            <StarsIcon fontSize="small" />
-                            {person.popularity}
+                            {<b>Rating:</b>} {person.popularity} <StarsIcon fontSize="small" />
+                            <p> {<b>Original Name:</b>} {person.original_name} </p>
                         </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" component="p">
-                            <PersonIcon fontSize="small" />
-                            {"  "} {person.original_name}{" "}
-                        </Typography>
-                    </Grid>
+
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>

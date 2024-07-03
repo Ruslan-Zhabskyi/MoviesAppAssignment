@@ -51,7 +51,7 @@ const PopularPeoplePage: React.FC = () => {
     return (
         <>
             <PageTemplate
-                title="Popular People"
+                name="Popular People"
                 people={displayedPeople}
                 action={(person: BasePeopleProps) => {
                     return <AddToWatchListIcon {...person} />
