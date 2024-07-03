@@ -6,8 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
-import StarRateIcon from "@mui/icons-material/StarRate";
+import StarsIcon from '@mui/icons-material/Stars';
+import PersonIcon from '@mui/icons-material/Person';
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
 import { BasePeopleProps } from "../../types/interfaces";
@@ -48,13 +48,13 @@ const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
                 <Grid container>
                     <Grid item xs={6}>
                         <Typography variant="h6" component="p">
-                            <CalendarIcon fontSize="small" />
+                            <StarsIcon fontSize="small" />
                             {person.popularity}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="h6" component="p">
-                            <StarRateIcon fontSize="small" />
+                            <PersonIcon fontSize="small" />
                             {"  "} {person.original_name}{" "}
                         </Typography>
                     </Grid>
