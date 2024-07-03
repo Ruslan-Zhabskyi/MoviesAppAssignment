@@ -1,15 +1,15 @@
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import {getUpcomingMovies} from "../api/tmdb-api";
+import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import {BaseMovieProps, UpcomingMovies} from "../types/interfaces";
+import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 
 const titleFiltering = {
     name: "title",
@@ -22,8 +22,8 @@ const genreFiltering = {
     condition: genreFilter,
 };
 
-const UpcomingMoviesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<UpcomingMovies, Error>("upcoming", getUpcomingMovies);
+const PopularMoviesPage: React.FC = () => {
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -60,7 +60,7 @@ const UpcomingMoviesPage: React.FC = () => {
                 title="Discover Movies"
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
-                    return <AddToWatchListIcon {...movie} />
+                    return <AddToFavouritesIcon {...movie} />
                 }}
             />
             <MovieFilterUI
@@ -71,4 +71,4 @@ const UpcomingMoviesPage: React.FC = () => {
         </>
     );
 };
-export default UpcomingMoviesPage;
+export default PopularMoviesPage;
