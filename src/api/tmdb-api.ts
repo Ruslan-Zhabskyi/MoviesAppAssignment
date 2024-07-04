@@ -89,6 +89,34 @@ export const getPeople = () => {
         });
 };
 
+export const getPerson = (id: string) => {
+    return fetch(
+        `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to get person data. Response status: ${response.status}`);
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
+export const getPersonImages = (id: string | number) => {
+    return fetch(
+        `https://api.themoviedb.org/3/person/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error("failed to fetch images");
+        }
+        return response.json();
+    }).then((json) => json.posters)
+        .catch((error) => {
+            throw error
+        });
+};
+
 export const getPopularMovies = () => {
     return fetch(
         `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`

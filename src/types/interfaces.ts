@@ -96,6 +96,7 @@ export interface BasePeopleProps {
     gender: number;
     popularity: number;
     profile_path: string;
+    biography?: string;
 }
 
 export interface BasePeopleListProps {
@@ -112,6 +113,16 @@ export interface DiscoverPeople {
     total_pages: number;
     total_results: number;
     results: BasePeopleListProps[];
+}
+
+export interface PersonImage {
+    file_path: string;
+    aspect_ratio?: number; //some props are optional...
+    height?: number;
+    iso_639_1?: string;
+    vote_average?: number;
+    vote_count?: number;
+    width?: number;
 }
 
 export interface BaseTVProps {
