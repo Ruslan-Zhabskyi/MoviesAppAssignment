@@ -1,12 +1,12 @@
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { getPopularMovies } from "../api/tmdb-api";
+import {getTrendingTV, getTrendingTVSecond} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
+import { BaseTVProps, DiscoverTV } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
@@ -22,8 +22,8 @@ const genreFiltering = {
     condition: genreFilter,
 };
 
-const PopularMoviesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("trending movies", getPopularMovies);
+const TvSeriesPage: React.FC = () => {
+    const { data, error, isLoading, isError } = useQuery<DiscoverTV, Error>("tv series", getTrendingTVSecond);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -46,16 +46,16 @@ const PopularMoviesPage: React.FC = () => {
         setFilterValues(updatedFilterSet);
     };
 
-    const movies = data ? data.results : [];
-    const displayedMovies = filterFunction(movies);
+    const tv = data ? data.results : [];
+    const displayedTV = filterFunction(tv);
 
     return (
         <>
             <PageTemplate
-                title="Trending Movies"
-                movies={displayedMovies}
-                action={(movie: BaseMovieProps) => {
-                    return <AddToFavouritesIcon {...movie} />
+                title="Trending TV Series"
+                movies={displayedTV}
+                action={(tv: BaseTVProps) => {
+                    return <AddToFavouritesIcon {...tv} />
                 }}
             />
             <MovieFilterUI
@@ -66,4 +66,4 @@ const PopularMoviesPage: React.FC = () => {
         </>
     );
 };
-export default PopularMoviesPage;
+export default TvSeriesPage;

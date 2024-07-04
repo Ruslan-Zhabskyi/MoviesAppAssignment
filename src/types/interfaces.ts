@@ -113,3 +113,24 @@ export interface DiscoverPeople {
     total_results: number;
     results: BasePeopleListProps[];
 }
+
+export interface BaseTVProps {
+    title: string;
+    id: number;
+    original_language: string;
+    overview: string;
+    first_air_date: string;
+    vote_average: number;
+    popularity: number;
+    poster_path?: string;
+    vote_count: number;
+    favourite?: boolean;
+    genre_ids?: number[];
+}
+
+export interface DiscoverTV {
+    page: number;
+    total_pages: number;
+    total_results: number;
+    results: BaseTVProps[];
+}
