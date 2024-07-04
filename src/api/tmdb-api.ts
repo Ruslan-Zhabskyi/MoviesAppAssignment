@@ -111,7 +111,7 @@ export const getPersonImages = (id: string | number) => {
             throw new Error("failed to fetch images");
         }
         return response.json();
-    }).then((json) => json.posters)
+    }).then((json) => json.profiles)
         .catch((error) => {
             throw error
         });
