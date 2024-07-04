@@ -2,6 +2,7 @@ export default {
     adult: false,
     gender: 1,
     id: 125025,
+    biography: "This is test biography",
     known_for_department: "Acting",
     name: "Joey King",
     original_name: "Joey King",
