@@ -1,12 +1,12 @@
 import React from "react";  // useState/useEffect redundant
-import PersonHeader from "../headerPerson";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getPersonImages} from "../../api/tmdb-api";
-import { BasePeopleProps, PersonImage } from "../../types/interfaces";
+import {getPersonImages} from "../../api/tmdb-api";
+import { PersonImage, BasePeopleProps} from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from '../spinner';
+import PersonHeader from "../headerPerson";
 
 const styles = {
     gridListRoot: {
@@ -20,13 +20,13 @@ const styles = {
     },
 };
 
-interface TemplatePeoplePageProps {
+interface TemplatePersonPageProps {
     person: BasePeopleProps;
     children: React.ReactElement;
 }
 
 
-const TemplatePeoplePage: React.FC<TemplatePeoplePageProps> = ({person, children}) => {
+const TemplatePersonPage: React.FC<TemplatePersonPageProps> = ({person, children}) => {
     const { data, error, isLoading, isError } = useQuery<PersonImage[], Error>(
         ["images", person.id],
         () => getPersonImages(person.id)
@@ -76,4 +76,4 @@ const TemplatePeoplePage: React.FC<TemplatePeoplePageProps> = ({person, children
     );
 };
 
-export default TemplatePeoplePage;
+export default TemplatePersonPage;
