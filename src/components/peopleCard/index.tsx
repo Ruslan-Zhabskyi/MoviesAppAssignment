@@ -55,7 +55,7 @@ const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>
-                <Link to={`/people/${person.id}`}>
+                <Link to={`/person/${person.id}`}>
                     <Button variant="outlined" size="medium" color="primary">
                         More Info ...
                     </Button>

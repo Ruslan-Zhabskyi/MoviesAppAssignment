@@ -42,25 +42,6 @@ const PersonDetails: React.FC<BasePeopleProps> = (person) => {
             <Typography variant="h6" component="p">
                 {person.biography}
             </Typography>
-
-            <Paper component="ul" sx={styles.chipSet}>
-                <li>
-                    <Chip label="Genres" sx={styles.chipLabel} color="primary" />
-                </li>
-            </Paper>
-            <Paper component="ul" sx={styles.chipSet}>
-                <Chip icon={<AccessTimeIcon />} label="test" />
-                <Chip
-                    icon={<MonetizationIcon />}
-                    label="test2"
-                />
-                <Chip
-                    icon={<StarRate />}
-                    label="test3"
-                />
-                <Chip label="test4" />
-            </Paper>
-
         </>
     );
 };
