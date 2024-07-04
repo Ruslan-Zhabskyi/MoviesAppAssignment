@@ -43,19 +43,12 @@ const PopularPeoplePage: React.FC = () => {
     const people = data ? data.results : [];
     const displayedPeople = filterFunction(people);
 
-    // Redundant, but necessary to avoid app crashing.
-    //const favourites = movies.filter(m => m.favourite)
-    //localStorage.setItem("favourites", JSON.stringify(favourites));
-    //const addToFavourites = (movieId: number) => true;
-
     return (
         <>
             <PageTemplate
                 name="Popular People"
                 people={displayedPeople}
-                action={(person: BasePeopleProps) => {
-                    return <AddToWatchListIcon {...person} />
-                }}
+                action=""
             />
             <UserFilterUI
                 onFilterValuesChange={changeFilterValues}

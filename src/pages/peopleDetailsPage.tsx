@@ -1,13 +1,14 @@
 import React from "react"; // replace existing react import
 import { useParams } from "react-router-dom";
-import TemplatePeoplePage from "../components/templatePeoplePage";
+import PeopleDetails from "../components/peopleDetails";
+import PageTemplate from "../components/templatePeoplePage";
+// import useMovie from "../hooks/useMovie";   Redundant
 import { getPerson } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
-import {BasePeopleProps} from "../types/interfaces";
-import {PersonDetails} from "../components/peopleDetails";
+import { BasePeopleProps } from "../types/interfaces";
 
-const PeopleDetailsPage: React.FC= () => {
+const PersonDetailsPage: React.FC= () => {
     const { id } = useParams();
     const { data: person, error, isLoading, isError } = useQuery<BasePeopleProps, Error>(
         ["person", id],
@@ -26,15 +27,15 @@ const PeopleDetailsPage: React.FC= () => {
         <>
             {person ? (
                 <>
-                    <TemplatePeoplePage person={person}>
-                        <PersonDetails {...person} />
-                    </TemplatePeoplePage>
+                    <PageTemplate person={person}>
+                        <PeopleDetails {...person} />
+                    </PageTemplate>
                 </>
             ) : (
-                <p>Waiting for people details</p>
+                <p>Waiting for person details</p>
             )}
         </>
     );
 };
 
-export default PeopleDetailsPage;
+export default PersonDetailsPage;
