@@ -99,6 +99,14 @@ export interface BasePeopleProps {
     biography?: string;
 }
 
+export interface PeopleDetailsProps extends BasePeopleProps {
+    facebook_id?: string,
+    instagram_id?: string,
+    tiktok_id?: string,
+    twitter_id?: string,
+    youtube_id?: string
+}
+
 export interface BasePeopleListProps {
     people: BasePeopleProps[];
     action: (m: BasePeopleProps) => React.ReactNode;
@@ -117,7 +125,7 @@ export interface DiscoverPeople {
 
 export interface PersonImage {
     file_path: string;
-    aspect_ratio?: number; //some props are optional...
+    aspect_ratio?: number;
     height?: number;
     iso_639_1?: string;
     vote_average?: number;
