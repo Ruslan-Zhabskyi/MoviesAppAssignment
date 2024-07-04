@@ -51,20 +51,20 @@ const TemplatePersonPage: React.FC<TemplatePersonPageProps> = ({person, children
             <Grid container spacing={5} style={{ padding: "15px" }}>
                 <Grid item xs={3}>
                     <div>
-                        <ImageList cols={1}>
-                            {images.map((image: PersonImage) => (
-                                <ImageListItem
-                                    key={image.file_path}
-                                    sx={styles.gridListTile}
-                                    cols={1}
-                                >
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                                        alt={'Image alternative'}
-                                    />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
+                        {/*<ImageList cols={1}>*/}
+                        {/*    {images.map((image: PersonImage) => (*/}
+                        {/*        <ImageListItem*/}
+                        {/*            key={image.file_path}*/}
+                        {/*            sx={styles.gridListTile}*/}
+                        {/*            cols={1}*/}
+                        {/*        >*/}
+                        {/*            <img*/}
+                        {/*                src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}*/}
+                        {/*                alt={'Image alternative'}*/}
+                        {/*            />*/}
+                        {/*        </ImageListItem>*/}
+                        {/*    ))}*/}
+                        {/*</ImageList>*/}
                     </div>
                 </Grid>
 
