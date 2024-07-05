@@ -6,11 +6,11 @@ import PageTemplate from "../components/templatePeoplePage";
 import { getPerson } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
-import { PeopleDetailsProps } from "../types/interfaces";
+import {BasePeopleProps} from "../types/interfaces";
 
 const PersonDetailsPage: React.FC= () => {
     const { id } = useParams();
-    const { data: person, error, isLoading, isError } = useQuery<PeopleDetailsProps, Error>(
+    const { data: person, error, isLoading, isError } = useQuery<BasePeopleProps, Error>(
         ["person", id],
         ()=> getPerson(id||"")
     );

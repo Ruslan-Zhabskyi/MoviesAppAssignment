@@ -99,7 +99,7 @@ export interface BasePeopleProps {
     biography?: string;
 }
 
-export interface PeopleDetailsProps extends BasePeopleProps {
+export interface PersonSocialMedia {
     facebook_id?: string,
     instagram_id?: string,
     tiktok_id?: string,

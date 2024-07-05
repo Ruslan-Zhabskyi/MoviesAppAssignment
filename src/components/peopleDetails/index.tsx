@@ -3,7 +3,7 @@ import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import {BasePeopleProps, PeopleDetailsProps} from "../../types/interfaces";
+import {BasePeopleProps} from "../../types/interfaces";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
@@ -30,7 +30,7 @@ const styles = {
     },
 };
 
-const PersonDetails: React.FC<PeopleDetailsProps> = (person) => {
+const PersonDetails: React.FC<BasePeopleProps> = (person) => {
 
     return (
         <>

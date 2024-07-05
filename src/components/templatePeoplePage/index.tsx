@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import {getPersonImages} from "../../api/tmdb-api";
-import {PersonImage, PeopleDetailsProps} from "../../types/interfaces";
+import {PersonImage, BasePeopleProps} from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from '../spinner';
 import PersonHeader from "../headerPerson";
@@ -21,7 +21,7 @@ const styles = {
 };
 
 interface TemplatePersonPageProps {
-    person: PeopleDetailsProps;
+    person: BasePeopleProps;
     children: React.ReactElement;
 }
 
