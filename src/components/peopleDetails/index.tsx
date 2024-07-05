@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import { BasePeopleProps } from "../../types/interfaces";
-import NavigationIcon from "@mui/icons-material/Navigation";
-import Fab from "@mui/material/Fab";
-import Drawer from "@mui/material/Drawer";
-import MovieReviews from '../movieReviews'
+import {BasePeopleProps, PeopleDetailsProps} from "../../types/interfaces";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import XIcon from '@mui/icons-material/X';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+
 
 const styles = {
     chipSet: {
@@ -31,7 +30,7 @@ const styles = {
     },
 };
 
-const PersonDetails: React.FC<BasePeopleProps> = (person) => {
+const PersonDetails: React.FC<PeopleDetailsProps> = (person) => {
 
     return (
         <>
@@ -42,6 +41,30 @@ const PersonDetails: React.FC<BasePeopleProps> = (person) => {
             <Typography variant="h6" component="p">
                 {person.biography}
             </Typography>
+            <Paper component="ul" sx={styles.chipSet}>
+            <Chip
+                icon={<StarRate />}
+                label={`${person.popularity} popularity` }
+            />
+            </Paper>
+            <Paper component="ul" sx={styles.chipSet}>
+                <a href={'https://facebook.com/' + person.facebook_id}>
+                    <FacebookIcon color="primary" fontSize="large"/>
+                </a>
+
+                <a href={'https://instagram.com/' + person.instagram_id}>
+                    <InstagramIcon color="primary" fontSize="large"/>
+                </a>
+
+                <a href={'https://x.com/' + person.twitter_id}>
+                    <XIcon color="primary" fontSize="large"/>
+                </a>
+
+                <a href={'https://www.youtube.com/' + person.youtube_id}>
+                    <YouTubeIcon color="primary" fontSize="large"/>
+                </a>
+            </Paper>
+
         </>
     );
 };
