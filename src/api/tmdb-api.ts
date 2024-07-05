@@ -90,25 +90,30 @@ export const getPeople = () => {
 };
 
 export const getPerson = (id: string) => {
-    const personUrl = `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`;
-    const externalIdsUrl = `https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${import.meta.env.VITE_TMDB_KEY}`;
-    return Promise.all([
-        fetch(personUrl),
-        fetch(externalIdsUrl)
-    ])
-        .then(responses => {
-            for (const response of responses) {
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch data. Response status: ${response.status}`);
-                }
-            }
-            return Promise.all(responses.map(res => res.json()));
-        })
-        .then(([personData, externalIdsData]) => {
-            return { ...personData, externalIds: externalIdsData };
-        })
-        .catch(error => {
-            throw error;
+    return fetch(
+        `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to get person data. Response status: ${response.status}`);
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
+export const getPersonSocialMedia = (id: string) => {
+    return fetch(
+        `https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to get person social media data. Response status: ${response.status}`);
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
         });
 };
 
