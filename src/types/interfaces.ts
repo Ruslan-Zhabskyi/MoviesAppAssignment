@@ -153,3 +153,16 @@ export interface DiscoverTV {
     total_results: number;
     results: BaseTVProps[];
 }
+
+export interface BaseFantasyMovieProps {
+    title: string;
+    budget: number;
+    id?: number;
+    original_language: string;
+    overview: string;
+    release_date: string;
+    poster_path?: string;
+    runtime: number;
+    revenue: number;
+    genre_ids?: number[];
+}
