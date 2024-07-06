@@ -46,7 +46,7 @@ const PopularPeoplePage: React.FC = () => {
     return (
         <>
             <PageTemplate
-                name="Popular People"
+                name="Popular Actors"
                 people={displayedPeople}
                 action=""
             />
