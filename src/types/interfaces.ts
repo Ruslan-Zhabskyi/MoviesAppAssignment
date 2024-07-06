@@ -156,13 +156,10 @@ export interface DiscoverTV {
 
 export interface BaseFantasyMovieProps {
     title: string;
-    budget: number;
     id?: number;
-    original_language: string;
     overview: string;
     release_date: string;
-    poster_path?: string;
     runtime: number;
-    revenue: number;
-    genre_ids?: number[];
+    genre: string[];
+    production_company: string[];
 }

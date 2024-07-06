@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import { MovieDetailsProps } from "../types/interfaces";
+import MovieReview from "../components/movieReview";
 
 const WriteReviewPage: React.FC = () => {
     const location = useLocation()
@@ -31,6 +32,7 @@ const WriteReviewPage: React.FC = () => {
             ) : (
                 <p>Waiting for movie review details</p>
             )}
+            
         </>
     );
 };
