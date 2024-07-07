@@ -33,17 +33,43 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     } = useForm<BaseFantasyMovieProps>(defaultValues);
 
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);  //NEW
     const context = useContext(MoviesContext);
 
-    const onSubmit: SubmitHandler<BaseFantasyMovieProps> = (fantacy) => {
-        fantacy.id = "0"; //AI: add ID generator here
-        console.log(fantacy);
+    const handleSnackClose = () => {
+        setOpen(false);
+        navigate("/fantasy");
+    };
+
+    const onSubmit: SubmitHandler<BaseFantasyMovieProps> = (fantasy) => {
+        fantasy.id = "0"; //AI: add ID generator here
+        context.addFantasyMovie(fantasy);
+        setOpen(true);
+        console.log(fantasy);
     };
     return (
         <Box component="div" sx={styles.root}>
             <Typography component="h2" variant="h3">
                 Create a Fantasy Movie
             </Typography>
+
+            <Snackbar
+                sx={styles.snack}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={open}
+                onClose={handleSnackClose}
+            >
+                <Alert
+                    severity="success"
+                    variant="filled"
+                    onClose={handleSnackClose}
+                >
+                    <Typography variant="h4">
+                        Thank you for submitting a Fantasy Movie
+                    </Typography>
+                </Alert>
+            </Snackbar>
+
             <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
                 <Controller
                     name="title"

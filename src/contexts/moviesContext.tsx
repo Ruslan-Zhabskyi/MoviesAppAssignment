@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps, Review } from "../types/interfaces";
+import { BaseMovieProps, Review, BaseFantasyMovieProps } from "../types/interfaces";
 
 interface MovieContextInterface {
     favourites: number[];
@@ -9,6 +9,7 @@ interface MovieContextInterface {
     watchLater: number[];
     addToWatchLater: ((movie: BaseMovieProps) => void);
     removeFromWatchLater: ((movie: BaseMovieProps) => void);
+    addFantasyMovie: ((fantacy: BaseFantasyMovieProps) => void);
 }
 const initialContextState: MovieContextInterface = {
     favourites: [],
@@ -18,6 +19,7 @@ const initialContextState: MovieContextInterface = {
     watchLater: [],
     addToWatchLater: () => {},
     removeFromWatchLater: () => {},
+    addFantasyMovie: (fantasy) => {fantasy},  //
 };
 
 export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
@@ -26,6 +28,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     const [favourites, setFavourites] = useState<number[]>([]);
     const [watchLater, setWatchLater] = useState<number[]>([]);
     const [myReviews, setMyReviews] = useState<Review[]>( [] );  // NEW
+    const [myFantasy, setMyFantasy] = useState<BaseFantasyMovieProps[]>( [] );  // NEW
     const addToFavourites = useCallback((movie: BaseMovieProps) => {
         setFavourites((prevFavourites) => {
             if (!prevFavourites.includes(movie.id)) {
@@ -57,6 +60,11 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
     const addReview = (movie:BaseMovieProps, review: Review) => {   // NEW
         setMyReviews( {...myReviews, [movie.id]: review } )
     };
+
+    const addFantasyMovie = (fantasy: BaseFantasyMovieProps) => {   // NEW
+        setMyFantasy( {...myFantasy, id: fantasy } )
+    };
+
     return (
         <MoviesContext.Provider
             value={{
@@ -67,6 +75,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
                 watchLater,
                 addToWatchLater,
                 removeFromWatchLater,
+                addFantasyMovie,
             }}
         >
             {children}
