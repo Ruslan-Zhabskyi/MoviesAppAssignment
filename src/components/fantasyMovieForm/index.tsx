@@ -25,6 +25,20 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         }
     };
 
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+        reset,
+    } = useForm<BaseFantasyMovieProps>(defaultValues);
+
+    const navigate = useNavigate();
+    const context = useContext(MoviesContext);
+
+    const onSubmit: SubmitHandler<BaseFantasyMovieProps> = (fantacy) => {
+        fantacy.id = "0"; //AI: add ID generator here
+        console.log(fantacy);
+    };
     return (
         <h3>Placeholder for web form</h3>
     );
