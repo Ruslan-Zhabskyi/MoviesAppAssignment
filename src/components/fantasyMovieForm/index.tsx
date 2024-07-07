@@ -35,6 +35,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);  //NEW
     const context = useContext(MoviesContext);
+    const [isInvalidInput, setIsInvalidInput] = useState(false);
 
     const handleSnackClose = () => {
         setOpen(false);
@@ -71,6 +72,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             </Snackbar>
 
             <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+
                 <Controller
                     name="title"
                     control={control}
@@ -91,8 +93,101 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     )}
                 />
                 {errors.title && (
-                    <Typography variant="h6" component="p">
+                    <Typography variant="h6" color="error">
                         {errors.title.message}
+                    </Typography>
+                )}
+
+                <Controller
+                    name="production_company"
+                    control={control}
+                    rules={{ required: "Production Company is required" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            sx={{ width: "40ch" }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            onChange={onChange}
+                            value={value}
+                            id="production_company"
+                            label="Production Company"
+                            autoFocus
+                        />
+                    )}
+                />
+                {errors.production_company && (
+                    <Typography variant="h6" color="error">
+                        {errors.production_company.message}
+                    </Typography>
+                )}
+
+                <Controller
+                    name="release_date"
+                    control={control}
+                    rules={{ required: "Release Date is required" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            sx={{ width: "40ch" }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            onChange={onChange}
+                            value={value}
+                            id="release_date"
+                            label="Release Date"
+                            type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            autoFocus
+                        />
+                    )}
+                />
+                {errors.release_date && (
+                    <Typography variant="h6" color="error">
+                        {errors.release_date.message}
+                    </Typography>
+                )}
+
+                <Controller
+                    name="runtime"
+                    control={control}
+                    rules={{ required: "Runtime is required" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            sx={{ width: "40ch" }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+                                if (e.target.value !== onlyNums) {
+                                    setIsInvalidInput(true);
+                                } else {
+                                    setIsInvalidInput(false);
+                                }
+                                onChange(onlyNums);
+                            }}
+                            value={value}
+                            id="runtime"
+                            label="Runtime Minutes"
+                            autoFocus
+                        />
+                    )}
+                />
+                {isInvalidInput && (
+
+                    <Typography variant="h6" color="error">
+                        Please enter only number as runtime.
+                    </Typography>
+                )}
+                {errors.runtime && (
+                    <Typography variant="h6" color="error">
+                        {errors.runtime.message}
                     </Typography>
                 )}
 
@@ -120,7 +215,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     )}
                 />
                 {errors.overview && (
-                    <Typography variant="h6" component="p">
+                    <Typography variant="h6" color="error">
                         {errors.overview.message}
                     </Typography>
                 )}
