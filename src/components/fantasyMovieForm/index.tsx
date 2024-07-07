@@ -40,8 +40,92 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         console.log(fantacy);
     };
     return (
-        <h3>Placeholder for web form</h3>
-    );
+        <Box component="div" sx={styles.root}>
+            <Typography component="h2" variant="h3">
+                Create a Fantasy Movie
+            </Typography>
+            <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+                <Controller
+                    name="title"
+                    control={control}
+                    rules={{ required: "Title is required" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            sx={{ width: "40ch" }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            onChange={onChange}
+                            value={value}
+                            id="title"
+                            label="Title"
+                            autoFocus
+                        />
+                    )}
+                />
+                {errors.title && (
+                    <Typography variant="h6" component="p">
+                        {errors.title.message}
+                    </Typography>
+                )}
+
+                <Controller
+                    name="overview"
+                    control={control}
+                    rules={{
+                        required: "Overview cannot be empty.",
+                        minLength: { value: 10, message: "Overview is too short" },
+                    }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            value={value}
+                            onChange={onChange}
+                            label="Overview text"
+                            id="overview"
+                            multiline
+                            minRows={10}
+                        />
+                    )}
+                />
+                {errors.overview && (
+                    <Typography variant="h6" component="p">
+                        {errors.overview.message}
+                    </Typography>
+                )}
+
+                <Box >
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        sx={styles.submit}
+                    >
+                        Submit
+                    </Button>
+                    <Button
+                        type="reset"
+                        variant="contained"
+                        color="secondary"
+                        sx={styles.submit}
+                        onClick={() => {
+                            reset({
+                                title: "",
+                                overview: "",
+                            });
+                        }}
+                    >
+                        Reset
+                    </Button>
+                </Box>
+            </form>
+        </Box>
+);
 };
 
 export default FantasyMovieForm;
