@@ -1,17 +1,21 @@
 import React, { useContext, useState, ChangeEvent } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Select, InputLabel, FormControl } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles";
-import ratings from "./ratingCategories";
-import {BaseFantasyMovieProps} from "../../types/interfaces";
+import {BaseFantasyMovieProps, GenreData} from "../../types/interfaces";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import {useQuery} from "react-query";
+import {getGenres} from "../../api/tmdb-api.ts";
+import MenuItem from "@mui/material/MenuItem";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     const defaultValues = {
@@ -24,6 +28,9 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             genre: ""
         }
     };
+
+    const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
+    const genres = data?.genres || [];
 
     const {
         control,
@@ -43,7 +50,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     };
 
     const onSubmit: SubmitHandler<BaseFantasyMovieProps> = (fantasy) => {
-        fantasy.id = "0"; //AI: add ID generator here
+        fantasy.id = uuidv4();
         context.addFantasyMovie(fantasy);
         setOpen(true);
         console.log(fantasy);
@@ -153,6 +160,39 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                 )}
 
                 <Controller
+                    name="genre"
+                    control={control}
+                    rules={{ required: "Genre is required" }}
+                    defaultValue={[]}
+                    render={({ field: { onChange, value } }) => (
+                        <FormControl sx={{ width: "40ch" }} margin="normal" required>
+                            <InputLabel id="genre-label">Genres</InputLabel>
+                            <Select
+                                labelId="genre-label"
+                                multiple
+                                value={value || []}
+                                onChange={onChange}
+                                label="Genres"
+                                renderValue={(selected) =>
+                                    selected.map(id => genres.find(genre => genre.id === id)?.name).filter(name => name).join(', ')
+                                }
+                            >
+                                {genres.map((genre) => (
+                                    <MenuItem key={genre.id} value={genre.id}>
+                                        {genre.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    )}
+                />
+                {errors.genre && (
+                    <Typography variant="h6" color="error">
+                        {errors.genre.message}
+                    </Typography>
+                )}
+
+                <Controller
                     name="runtime"
                     control={control}
                     rules={{ required: "Runtime is required" }}
@@ -245,6 +285,25 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     </Button>
                 </Box>
             </form>
+
+            <Box sx={{ marginTop: 4 }}>
+                <Typography variant="h4">Submitted Fantasy Movies:</Typography>
+                {context.myFantasy.length > 0 ? (
+                    context.myFantasy.map((fantasy, id) => (
+                        <Box key={id} sx={{ marginTop: 2, padding: 2, border: '1px solid gray' }}>
+                            <Typography variant="h6">Title: {fantasy.title}</Typography>
+                            <Typography variant="body1">Overview: {fantasy.overview}</Typography>
+                            <Typography variant="body1">Release Date: {fantasy.release_date}</Typography>
+                            <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
+                            <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
+                            <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
+                        </Box>
+                    ))
+                ) : (
+                    <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>
+                )}
+            </Box>
+
         </Box>
 );
 };

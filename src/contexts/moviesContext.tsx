@@ -9,10 +9,12 @@ interface MovieContextInterface {
     watchLater: number[];
     addToWatchLater: ((movie: BaseMovieProps) => void);
     removeFromWatchLater: ((movie: BaseMovieProps) => void);
-    addFantasyMovie: ((fantacy: BaseFantasyMovieProps) => void);
+    addFantasyMovie: ((fantasy: BaseFantasyMovieProps) => void);
+    myFantasy: BaseFantasyMovieProps[];
 }
 const initialContextState: MovieContextInterface = {
     favourites: [],
+    myFantasy: [],
     addToFavourites: () => {},
     removeFromFavourites: () => {},
     addReview: (movie, review) => { movie.id, review},  // NEW
@@ -61,9 +63,9 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
         setMyReviews( {...myReviews, [movie.id]: review } )
     };
 
-    const addFantasyMovie = (fantasy: BaseFantasyMovieProps) => {   // NEW
-        setMyFantasy( {...myFantasy, id: fantasy } )
-    };
+    const addFantasyMovie = useCallback((fantasy: BaseFantasyMovieProps) => {
+        setMyFantasy(prevFantasy => [...prevFantasy, fantasy]);
+    }, []);
 
     return (
         <MoviesContext.Provider
@@ -76,6 +78,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
                 addToWatchLater,
                 removeFromWatchLater,
                 addFantasyMovie,
+                myFantasy,
             }}
         >
             {children}
