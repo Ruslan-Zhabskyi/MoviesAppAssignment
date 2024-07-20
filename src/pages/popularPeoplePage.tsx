@@ -42,7 +42,7 @@ const PopularPeoplePage: React.FC = () => {
     }
 
 
-    const changeFilterValues = (type: string, value: string) => {
+    const changeFilterValues = (type: string | number, value: string | number) => {
         const changedFilter = { name: type, value: value };
         const updatedFilterSet =
             type === "name"
@@ -67,7 +67,7 @@ const PopularPeoplePage: React.FC = () => {
                 <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
                 nameFilter={filterValues[0].value}
-
+                popularityFilter={filterValues[1].value}
             />
         </>
     );

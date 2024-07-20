@@ -3,7 +3,7 @@ import { useState } from "react";
 interface Filter {
     name: string;
     value: string;
-    condition: (item: any, value: string) => boolean;
+    condition: (item: any, value: string | number) => boolean;
 }
 
 const useFiltering = ( filters: Filter[]) => {
