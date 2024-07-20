@@ -3,12 +3,13 @@ import PageTemplate from "../components/templatePeopleListPage";
 import {getPeople} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import UserFilterUI, {
-    nameFilter, popularityFilter
+    nameFilter, popularityFilter, genderFilter
 } from "../components/userFilterUI";
 import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople.tsx";
+
 
 const nameFiltering = {
     name: "name",
@@ -22,10 +23,16 @@ const popularityFiltering = {
     condition: popularityFilter,
 };
 
+const genderFiltering = {
+    name: "gender",
+    value: "",
+    condition: genderFilter,
+};
+
 const PopularPeoplePage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
-        [nameFiltering,popularityFiltering]
+        [nameFiltering,popularityFiltering, genderFiltering]
     );
 
     if (isLoading) {
@@ -51,6 +58,7 @@ const PopularPeoplePage: React.FC = () => {
 
     return (
         <>
+
             <PageTemplate
                 name="Popular Actors"
                 people={displayedPeople}
@@ -58,9 +66,11 @@ const PopularPeoplePage: React.FC = () => {
                     return <AddToFavouritesIcon {...person} />
                 }}
             />
-            <UserFilterUI
+                <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
                 nameFilter={filterValues[0].value}
+                popularityFilter={filterValues[1].value}
+                genderFilter={filterValues[2].value}
             />
         </>
     );

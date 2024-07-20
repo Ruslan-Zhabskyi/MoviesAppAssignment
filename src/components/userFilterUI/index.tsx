@@ -12,6 +12,10 @@ export const popularityFilter = (person: BasePeopleProps, value: number): boolea
     return person.popularity >= value;
 };
 
+export const genderFilter = (person: BasePeopleProps, value: number): boolean => {
+    return person.gender == value;
+};
+
 const styles = {
     root: {
         backgroundColor: "#bfbfbf",
@@ -27,11 +31,12 @@ const styles = {
 interface PersonFilterUIProps {
     onFilterValuesChange: (p: string) => void;
     nameFilter: string;
-    popularityFilter: string;
+    popularityFilter: number;
+    genderFilter: number;
 }
 
 
-const UserFilterUI: React.FC<PersonFilterUIProps> = ({ onFilterValuesChange, nameFilter, popularityFilter }) => {
+const UserFilterUI: React.FC<PersonFilterUIProps> = ({ onFilterValuesChange, nameFilter, popularityFilter , genderFilter}) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
@@ -53,6 +58,7 @@ const UserFilterUI: React.FC<PersonFilterUIProps> = ({ onFilterValuesChange, nam
                     onUserInput={onFilterValuesChange}
                     nameFilter={nameFilter}
                     popularityFilter={popularityFilter}
+                    genderFilter={genderFilter}
                 />
             </Drawer>
         </>

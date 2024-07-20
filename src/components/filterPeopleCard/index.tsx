@@ -25,9 +25,10 @@ interface FilterMoviesCardProps {
     onUserInput: (f: FilterOption, s: string)  => void;
     nameFilter: string;
     popularityFilter: number;
+    genderFilter: number;
 }
 
-const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popularityFilter,  onUserInput }) => {
+const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popularityFilter,  genderFilter, onUserInput }) => {
 
     const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
         e.preventDefault()
@@ -36,12 +37,15 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popular
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleChange(e, "name", e.target.value)
-    }
+    };
 
     const handlePopularityChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleChange(e, "popularity", e.target.value)
-    }
+    };
 
+    const handleGenderChange = (e: ChangeEvent<HTMLInputElement>) => {
+        handleChange(e, "gender", e.target.value)
+    };
 
     return (
         <>
@@ -65,6 +69,19 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popular
                     />
 
                     <Typography id="input-slider" gutterBottom>
+                        Gender Filter
+                    </Typography>
+                    <TextField
+                        sx={styles.formControl}
+                        id="filled-search"
+                        label="Search field"
+                        type="search"
+                        value={genderFilter}
+                        variant="filled"
+                        onChange={handleGenderChange}
+                    />
+
+                    <Typography id="input-slider" gutterBottom>
                         Popularity Filter
                     </Typography>
                     <Slider
@@ -75,7 +92,7 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popular
                         step={10}
                         marks
                         min={10}
-                        max={300}
+                        max={200}
                         sx={styles.formControl}
                         id="filled-search"
                         label="Search field"
