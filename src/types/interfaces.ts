@@ -67,6 +67,13 @@ export interface GenreData {
     }[];
 }
 
+export interface  DepartamentData {
+    departaments: {
+        id: string;
+        name: string
+    }[];
+}
+
 export interface DiscoverMovies {
     page: number;
     total_pages: number;

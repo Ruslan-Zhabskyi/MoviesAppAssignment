@@ -1,19 +1,12 @@
 import React, { ChangeEvent } from "react";  // useState/useEffect redundant
-import { FilterOption, GenreData } from "../../types/interfaces"; //include GenreData interface
-import { SelectChangeEvent } from "@mui/material";
+import { FilterOption } from "../../types/interfaces";
+import {SelectChangeEvent, Slider} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { getGenres } from "../../api/tmdb-api";
-import { useQuery } from "react-query";
-import Spinner from '../spinner';
 
 const styles = {
     root: {
@@ -29,24 +22,12 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
-    onUserInput: (f: FilterOption, s: string)  => void; // Add this line
+    onUserInput: (f: FilterOption, s: string)  => void;
     nameFilter: string;
-    // genreFilter: string;
+    popularityFilter: number;
 }
 
-const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, onUserInput }) => {
-    // const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
-    //
-    // if (isLoading) {
-    //     return <Spinner />;
-    // }
-    // if (isError) {
-    //     return <h1>{(error as Error).message}</h1>;
-    // }
-    // const genres = data?.genres || [];
-    // if (genres[0].name !== "All") {
-    //     genres.unshift({ id: "0", name: "All" });
-    // }
+const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popularityFilter,  onUserInput }) => {
 
     const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
         e.preventDefault()
@@ -57,9 +38,10 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, onUserI
         handleChange(e, "name", e.target.value)
     }
 
-    // const handleGenreChange = (e: SelectChangeEvent) => {
-    //     handleChange(e, "genre", e.target.value)
-    // };
+    const handlePopularityChange = (e: ChangeEvent<HTMLInputElement>) => {
+        handleChange(e, "popularity", e.target.value)
+    }
+
 
     return (
         <>
@@ -69,6 +51,9 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, onUserI
                         <FilterAltIcon fontSize="large" />
                         Filter the actors.
                     </Typography>
+                    <Typography id="input-slider" gutterBottom>
+                        Name Filter
+                    </Typography>
                     <TextField
                         sx={styles.formControl}
                         id="filled-search"
@@ -77,6 +62,27 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, onUserI
                         value={nameFilter}
                         variant="filled"
                         onChange={handleTextChange}
+                    />
+
+                    <Typography id="input-slider" gutterBottom>
+                        Popularity Filter
+                    </Typography>
+                    <Slider
+                        aria-label="Popularity"
+                        defaultValue={30}
+                        valueLabelDisplay="auto"
+                        shiftStep={30}
+                        step={10}
+                        marks
+                        min={10}
+                        max={300}
+                        sx={styles.formControl}
+                        id="filled-search"
+                        label="Search field"
+                        type="search"
+                        value={popularityFilter}
+                        variant="filled"
+                        onChange={handlePopularityChange}
                     />
 
                 </CardContent>

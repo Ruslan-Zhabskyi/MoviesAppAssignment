@@ -3,7 +3,7 @@ import PageTemplate from "../components/templatePeopleListPage";
 import {getPeople} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import UserFilterUI, {
-    nameFilter
+    nameFilter, popularityFilter
 } from "../components/userFilterUI";
 import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -16,10 +16,16 @@ const nameFiltering = {
     condition: nameFilter,
 };
 
+const popularityFiltering = {
+    name: "popularity",
+    value: "",
+    condition: popularityFilter,
+};
+
 const PopularPeoplePage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
-        [nameFiltering]
+        [nameFiltering,popularityFiltering]
     );
 
     if (isLoading) {
