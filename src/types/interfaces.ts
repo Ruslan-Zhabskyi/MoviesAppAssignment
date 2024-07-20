@@ -163,3 +163,9 @@ export interface BaseFantasyMovieProps {
     genre: string[];
     production_company: string[];
 }
+
+export interface AuthContextInterface {
+    token: string | null;
+    authenticate: ((username: string, password: string) => void);
+    signout: () => void;
+}

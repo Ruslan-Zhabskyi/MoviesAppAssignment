@@ -11,6 +11,8 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
+import { useContext } from "react";
 
 const styles = {
     title: {
@@ -21,6 +23,7 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+    const { token, signout } = useContext(AuthContext) || {};
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const open = Boolean(anchorEl);
