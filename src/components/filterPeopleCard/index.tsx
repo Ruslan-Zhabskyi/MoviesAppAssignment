@@ -68,18 +68,18 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popular
                         onChange={handleTextChange}
                     />
 
-                    <Typography id="input-slider" gutterBottom>
-                        Gender Filter
-                    </Typography>
-                    <TextField
-                        sx={styles.formControl}
-                        id="filled-search"
-                        label="Search field"
-                        type="search"
-                        value={genderFilter}
-                        variant="filled"
-                        onChange={handleGenderChange}
-                    />
+                    {/*<Typography id="input-slider" gutterBottom>*/}
+                    {/*    Gender Filter*/}
+                    {/*</Typography>*/}
+                    {/*<TextField*/}
+                    {/*    sx={styles.formControl}*/}
+                    {/*    id="filled-search"*/}
+                    {/*    label="Search field"*/}
+                    {/*    type="search"*/}
+                    {/*    value={genderFilter}*/}
+                    {/*    variant="filled"*/}
+                    {/*    onChange={handleGenderChange}*/}
+                    {/*/>*/}
 
                     <Typography id="input-slider" gutterBottom>
                         Popularity Filter

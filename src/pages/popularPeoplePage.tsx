@@ -67,7 +67,7 @@ const PopularPeoplePage: React.FC = () => {
                 <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
                 nameFilter={filterValues[0].value}
-                popularityFilter={filterValues[1].value}
+                popularityFiltering={filterValues[1].value}
             />
         </>
     );
