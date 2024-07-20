@@ -8,7 +8,7 @@ import UserFilterUI, {
 import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
+import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople.tsx";
 
 const nameFiltering = {
     name: "name",
@@ -48,7 +48,9 @@ const PopularPeoplePage: React.FC = () => {
             <PageTemplate
                 name="Popular Actors"
                 people={displayedPeople}
-                action=""
+                action={(person: BasePeopleProps) => {
+                    return <AddToFavouritesIcon {...person} />
+                }}
             />
             <UserFilterUI
                 onFilterValuesChange={changeFilterValues}

@@ -97,6 +97,7 @@ export interface BasePeopleProps {
     popularity: number;
     profile_path: string;
     biography?: string;
+    favouritePerson?: boolean;
 }
 
 export interface PersonSocialMedia {

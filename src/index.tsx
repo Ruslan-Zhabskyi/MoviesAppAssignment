@@ -10,6 +10,7 @@ import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import {QueryClientProvider, QueryClient} from "react-query";
 import {ReactQueryDevtools} from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
+import PeopleContextProvider from "./contexts/peopleContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import WatchLaterMoviePage from './pages/watchLaterMoviePage';
 import PopularPeoplePage from './pages/popularPeoplePage';
@@ -39,6 +40,7 @@ const App = () => {
                 <AuthProvider>
                     <SiteHeader/>
                     <MoviesContextProvider>
+                    <PeopleContextProvider>
                         <Routes>
                             <Route path="/reviews/form" element={<AddMovieReviewPage/>}/>
                             <Route path="/movies/upcoming/watchlater"
@@ -58,6 +60,7 @@ const App = () => {
                             <Route path="/" element={<HomePage/>}/>
                             <Route path="*" element={<Navigate to="/"/>}/>
                         </Routes>
+                    </PeopleContextProvider>
                     </MoviesContextProvider>
                 </AuthProvider>
             </BrowserRouter>

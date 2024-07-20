@@ -13,7 +13,6 @@ import img from '../../images/film-poster-placeholder.png';
 import { BasePeopleProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import { PeopleContext } from "../../contexts/peopleContext";
-import {MoviesContext} from "../../contexts/moviesContext.tsx";
 import Avatar from "@mui/material/Avatar";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
@@ -32,21 +31,19 @@ interface PeopleCardProps {
 
 const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
 
-    const { favourites, addToFavourites } = useContext(PeopleContext);//NEW
-    const isFavourite = favourites.find((id) => id === person.id)? true : false;//NEW
+    const { favouritePeople, addToFavouritePeople } = useContext(PeopleContext);//NEW
+    const isFavouritePerson = favouritePeople.find((id) => id === person.id)? true : false;//NEW
 
     return (
         <Card sx={styles.card}>
             <CardHeader
-
                 avatar={
-                    isFavourite ? (
+                    isFavouritePerson ? (
                         <Avatar sx={styles.avatar}>
                             <FavoriteIcon />
                         </Avatar>
                     ) : null
                 }
-
                 title={
                     <Typography variant="h5" component="p">
                         {person.name}{" "}
@@ -72,6 +69,7 @@ const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>
+                {action(person)}
                 <Link to={`/popular/people/${person.id}`}>
                     <Button variant="outlined" size="medium" color="primary">
                         More Info ...

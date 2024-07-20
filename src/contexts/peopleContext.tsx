@@ -2,39 +2,39 @@ import React, { useState, useCallback } from "react";
 import { BasePeopleProps } from "../types/interfaces";
 
 interface PeopleContextInterface {
-    favourites: number[];
-    addToFavourites: ((person: BasePeopleProps) => void);
-    removeFromFavourites: ((person: BasePeopleProps) => void);
+    favouritePeople: number[];
+    addToFavouritePeople: ((person: BasePeopleProps) => void);
+    removeFromFavouritePeople: ((person: BasePeopleProps) => void);
 }
 const initialContextState: PeopleContextInterface = {
-    favourites: [],
-    addToFavourites: () => {},
-    removeFromFavourites: () => {},
+    favouritePeople: [],
+    addToFavouritePeople: () => {},
+    removeFromFavouritePeople: () => {},
 };
 
 export const PeopleContext = React.createContext<PeopleContextInterface>(initialContextState);
 
 const PeopleContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-    const [favourites, setFavourites] = useState<number[]>([]);
-    const addToFavourites = useCallback((person: BasePeopleProps) => {
-        setFavourites((prevFavourites) => {
-            if (!prevFavourites.includes(person.id)) {
-                return [...prevFavourites, person.id];
+    const [favouritePeople, setFavouritePeople] = useState<number[]>([]);
+    const addToFavouritePeople = useCallback((person: BasePeopleProps) => {
+        setFavouritePeople((prevFavouritePeople) => {
+            if (!prevFavouritePeople.includes(person.id)) {
+                return [...prevFavouritePeople, person.id];
             }
-            return prevFavourites;
+            return prevFavouritePeople;
         });
     }, []);
 
-    const removeFromFavourites = useCallback((person: BasePeopleProps) => {
-        setFavourites((prevFavourites) => prevFavourites.filter((mId) => mId !== person.id));
+    const removeFromFavouritePeople = useCallback((person: BasePeopleProps) => {
+        setFavouritePeople((prevFavouritePeople) => prevFavouritePeople.filter((pId) => pId !== person.id));
     }, []);
 
     return (
         <PeopleContext.Provider
             value={{
-                favourites,
-                addToFavourites,
-                removeFromFavourites,
+                favouritePeople,
+                addToFavouritePeople,
+                removeFromFavouritePeople,
             }}
         >
             {children}
