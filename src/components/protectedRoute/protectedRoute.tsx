@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
-import { AuthContext } from "./authContext";
+import { AuthContext } from "../../contexts/authContext.tsx";
 
 const ProtectedRoute:React.FC<React.PropsWithChildren> = (props) => {
     const authContext = useContext(AuthContext);

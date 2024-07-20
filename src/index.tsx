@@ -18,7 +18,7 @@ import TvSeriesPage from "./pages/tvSeriesPage.tsx";
 import PersonDetailsPage from "./pages/peopleDetailsPage.tsx";
 import FantasyMoviePage from "./pages/fantasyMoviePage.tsx";
 import LoginPage from "./pages/loginPage.tsx";
-import ProtectedRoute from "./contexts/protectedRoute";
+import ProtectedRoute from "./components/protectedRoute/protectedRoute.tsx";
 import AuthProvider from "./contexts/authContext";
 
 const queryClient = new QueryClient({
