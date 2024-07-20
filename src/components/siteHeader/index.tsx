@@ -39,6 +39,7 @@ const SiteHeader: React.FC = () => {
         { label: "Watch Later", path: "/movies/upcoming/watchlater" },
         { label: "Popular Actors", path: "/popular/people" },
         { label: "My Fantasy Movie", path: "/fantasy" },
+
     ];
 
     const handleMenuSelect = (pageURL: string) => {
@@ -51,6 +52,7 @@ const SiteHeader: React.FC = () => {
 
     return (
         <>
+
             <AppBar position="fixed" elevation={0} color="primary">
                 <Toolbar>
                     <Typography variant="h4" sx={styles.title}>
@@ -107,6 +109,17 @@ const SiteHeader: React.FC = () => {
                                     {opt.label}
                                 </Button>
                             ))}
+
+                            {token ? (
+                                <Button color="inherit" onClick={() => signout()}>
+                                    Sign out
+                                </Button>
+                            ) : (
+                                <Button color="inherit" onClick={() => navigate("/login")}>
+                                    Login
+                                </Button>
+                            )}
+
                         </>
                     )}
                 </Toolbar>
