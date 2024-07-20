@@ -16,13 +16,11 @@ const nameFiltering = {
     value: "",
     condition: nameFilter,
 };
-
 const popularityFiltering = {
     name: "popularity",
     value: "",
     condition: popularityFilter,
 };
-
 const genderFiltering = {
     name: "gender",
     value: "",
@@ -32,7 +30,7 @@ const genderFiltering = {
 const PopularPeoplePage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
-        [nameFiltering,popularityFiltering, genderFiltering]
+        [nameFiltering, popularityFiltering]
     );
 
     if (isLoading) {
@@ -69,8 +67,7 @@ const PopularPeoplePage: React.FC = () => {
                 <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
                 nameFilter={filterValues[0].value}
-                popularityFilter={filterValues[1].value}
-                genderFilter={filterValues[2].value}
+
             />
         </>
     );

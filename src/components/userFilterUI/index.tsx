@@ -24,12 +24,12 @@ const styles = {
         marginTop: 8,
         position: "fixed",
         top: 20,
-        right: 2,
+        right: 3,
     },
 };
 
 interface PersonFilterUIProps {
-    onFilterValuesChange: (p: string) => void;
+    onFilterValuesChange: (p: string | number) => void;
     nameFilter: string;
     popularityFilter: number;
     genderFilter: number;
