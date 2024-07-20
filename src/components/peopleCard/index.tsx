@@ -7,11 +7,16 @@ import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import StarsIcon from '@mui/icons-material/Stars';
-import PersonIcon from '@mui/icons-material/Person';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
 import { BasePeopleProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
+import { PeopleContext } from "../../contexts/peopleContext";
+import {MoviesContext} from "../../contexts/moviesContext.tsx";
+import Avatar from "@mui/material/Avatar";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+
 const styles = {
     card: { maxWidth: 345 },
     media: { height: 500 },
@@ -27,9 +32,21 @@ interface PeopleCardProps {
 
 const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
 
+    const { favourites, addToFavourites } = useContext(PeopleContext);//NEW
+    const isFavourite = favourites.find((id) => id === person.id)? true : false;//NEW
+
     return (
         <Card sx={styles.card}>
             <CardHeader
+
+                avatar={
+                    isFavourite ? (
+                        <Avatar sx={styles.avatar}>
+                            <FavoriteIcon />
+                        </Avatar>
+                    ) : null
+                }
+
                 title={
                     <Typography variant="h5" component="p">
                         {person.name}{" "}
