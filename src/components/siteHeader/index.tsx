@@ -38,6 +38,7 @@ const SiteHeader: React.FC = () => {
         { label: "Favorites", path: "/movies/favourites" },
         { label: "Watch Later", path: "/movies/upcoming/watchlater" },
         { label: "Popular Actors", path: "/popular/people" },
+        {label: "Favourite Actors", path: "/people/favourite" },
         { label: "My Fantasy Movie", path: "/fantasy" },
 
     ];

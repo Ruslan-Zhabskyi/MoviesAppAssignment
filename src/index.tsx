@@ -21,6 +21,7 @@ import FantasyMoviePage from "./pages/fantasyMoviePage.tsx";
 import LoginPage from "./pages/loginPage.tsx";
 import ProtectedRoute from "./components/protectedRoute/protectedRoute.tsx";
 import AuthProvider from "./contexts/authContext";
+import FavouriteActorsPage from "./pages/favouriteActorsPage.tsx";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -52,7 +53,8 @@ const App = () => {
                             <Route path="/fantasy" element={<ProtectedRoute> <FantasyMoviePage/> </ProtectedRoute>}/>
                             <Route path="/tv/trending" element={<TvSeriesPage/>}/>
                             <Route path="/reviews/:id" element={<MovieReviewPage/>}/>
-
+                            <Route path="/people/favourite"
+                                   element={<ProtectedRoute> <FavouriteActorsPage/> </ProtectedRoute>}/>
                             <Route path="/movies/favourites"
                                    element={<ProtectedRoute> <FavouriteMoviesPage/> </ProtectedRoute>}/>
                             <Route path="/login" element={<LoginPage/>}/>
