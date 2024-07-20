@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";  // useState/useEffect redundant
+import React, {ChangeEvent, ReactNode} from "react";  // useState/useEffect redundant
 import { FilterOption } from "../../types/interfaces";
 import {SelectChangeEvent, Slider} from "@mui/material";
 import Card from "@mui/material/Card";
@@ -7,6 +7,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const styles = {
     root: {
@@ -68,18 +72,23 @@ const FilterPeopleCard: React.FC<FilterMoviesCardProps> = ({ nameFilter, popular
                         onChange={handleTextChange}
                     />
 
-                    {/*<Typography id="input-slider" gutterBottom>*/}
-                    {/*    Gender Filter*/}
-                    {/*</Typography>*/}
-                    {/*<TextField*/}
-                    {/*    sx={styles.formControl}*/}
-                    {/*    id="filled-search"*/}
-                    {/*    label="Search field"*/}
-                    {/*    type="search"*/}
-                    {/*    value={genderFilter}*/}
-                    {/*    variant="filled"*/}
-                    {/*    onChange={handleGenderChange}*/}
-                    {/*/>*/}
+                    <Typography id="input-slider" gutterBottom>
+                        Gender Filter
+                    </Typography>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={genderFilter}
+                            label="Search field"
+                            onChange={handleGenderChange}
+                        >
+                            <MenuItem value={1}>Female</MenuItem>
+                            <MenuItem value={2}>Male</MenuItem>
+                            <MenuItem value={""}>All</MenuItem>
+                        </Select>
+                    </FormControl>
 
                     <Typography id="input-slider" gutterBottom>
                         Popularity Filter

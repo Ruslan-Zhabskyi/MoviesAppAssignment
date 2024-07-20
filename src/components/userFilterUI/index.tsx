@@ -13,7 +13,7 @@ export const popularityFilter = (person: BasePeopleProps, value: number): boolea
 };
 
 export const genderFilter = (person: BasePeopleProps, value: number): boolean => {
-    return person.gender == value;
+    return person.gender.toString().search(value) !== -1;
 };
 
 const styles = {

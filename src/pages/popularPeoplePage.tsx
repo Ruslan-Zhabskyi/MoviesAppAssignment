@@ -1,75 +1,64 @@
 import React from "react";
 import PageTemplate from "../components/templatePeopleListPage";
-import {getPeople} from "../api/tmdb-api";
+import { getPeople } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import UserFilterUI, {
-    nameFilter, popularityFilter, genderFilter
-} from "../components/userFilterUI";
-import {BasePeopleProps, DiscoverPeople} from "../types/interfaces";
+import UserFilterUI from "../components/userFilterUI";
+import { nameFilter, popularityFilter, genderFilter } from "../components/userFilterUI";
+import { BasePeopleProps, DiscoverPeople } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople.tsx";
-
-
-const nameFiltering = {
-    name: "name",
-    value: "",
-    condition: nameFilter,
-};
-const popularityFiltering = {
-    name: "popularity",
-    value: "",
-    condition: popularityFilter,
-};
-const genderFiltering = {
-    name: "gender",
-    value: "",
-    condition: genderFilter,
-};
+import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople";
 
 const PopularPeoplePage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
-    const { filterValues, setFilterValues, filterFunction } = useFiltering(
-        [nameFiltering, popularityFiltering]
-    );
+    const { filterValues, setFilterValues, filterFunction } = useFiltering([
+        { name: "name", value: "", condition: nameFilter },
+        { name: "popularity", value: "", condition: popularityFilter },
+        { name: "gender", value: "", condition: genderFilter },
+    ]);
 
     if (isLoading) {
         return <Spinner />;
     }
 
     if (isError) {
+        console.error("Error fetching people:", error);
         return <h1>{error.message}</h1>;
     }
 
-
-    const changeFilterValues = (type: string | number, value: string | number) => {
-        const changedFilter = { name: type, value: value };
-        const updatedFilterSet =
-            type === "name"
-                ? [changedFilter, filterValues[1]]
-                : [filterValues[0], changedFilter];
-        setFilterValues(updatedFilterSet);
+    const changeFilterValues = (type: string, value: string | number) => {
+        try {
+            const updatedFilterSet = filterValues.map(filter =>
+                filter.name === type ? { ...filter, value: value } : filter
+            );
+            setFilterValues(updatedFilterSet);
+        } catch (error) {
+            console.error("Error updating filter values:", error);
+        }
     };
 
-    const people = data ? data.results : [];
-    const displayedPeople = filterFunction(people);
+    let displayedPeople = [];
+    try {
+        displayedPeople = filterFunction(data ? data.results : []);
+    } catch (error) {
+        console.error("Error applying filters:", error);
+    }
 
     return (
         <>
-
             <PageTemplate
                 name="Popular Actors"
                 people={displayedPeople}
-                action={(person: BasePeopleProps) => {
-                    return <AddToFavouritesIcon {...person} />
-                }}
+                action={(person: BasePeopleProps) => <AddToFavouritesIcon {...person} />}
             />
-                <UserFilterUI
+            <UserFilterUI
                 onFilterValuesChange={changeFilterValues}
-                nameFilter={filterValues[0].value}
-                popularityFiltering={filterValues[1].value}
+                nameFilter={filterValues.find(f => f.name === "name")?.value || ""}
+                popularityFilter={filterValues.find(f => f.name === "popularity")?.value || ""}
+                genderFilter={filterValues.find(f => f.name === "gender")?.value || ""}
             />
         </>
     );
 };
+
 export default PopularPeoplePage;
