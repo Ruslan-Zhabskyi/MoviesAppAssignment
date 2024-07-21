@@ -124,6 +124,8 @@ export interface BasePeopleListProps {
 
 export interface PeopleListPageTemplateProps extends BasePeopleListProps {
     name: string;
+    onBack: () => void;
+    onForward: () => void;
 }
 
 export interface DiscoverPeople {

@@ -1,16 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import PageTemplate from "../components/templatePeopleListPage";
-import { getPeople } from "../api/tmdb-api";
+import {getPeoplePaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import UserFilterUI from "../components/userFilterUI";
 import { nameFilter, popularityFilter, genderFilter } from "../components/userFilterUI";
-import { BasePeopleProps, DiscoverPeople } from "../types/interfaces";
+import {BasePeopleProps, DiscoverMovies, DiscoverPeople} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople";
 
 const PopularPeoplePage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverPeople, Error>("popular", getPeople);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        ["popular", currentPage],
+        () => getPeoplePaginated({ page: currentPage }),
+        { keepPreviousData: true }
+    );
+
     const { filterValues, setFilterValues, filterFunction } = useFiltering([
         { name: "name", value: "", condition: nameFilter },
         { name: "popularity", value: "", condition: popularityFilter },
@@ -44,10 +51,21 @@ const PopularPeoplePage: React.FC = () => {
         console.error("Error applying filters:", error);
     }
 
+    const handlePrevPage = () => {
+        setCurrentPage(old => Math.max(old - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+
     return (
         <>
             <PageTemplate
                 name="Popular Actors"
+                onBack={handlePrevPage}
+                onForward={handleNextPage}
                 people={displayedPeople}
                 action={(person: BasePeopleProps) => <AddToFavouritesIcon {...person} />}
             />

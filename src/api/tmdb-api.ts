@@ -114,6 +114,19 @@ export const getPeople = () => {
         });
 };
 
+export const getPeoplePaginated = ({page}) => {
+    return fetch(
+        `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
+    ).then((response) => {
+        if (!response.ok)
+            throw new Error(`Unable to fetch people. Response status: ${response.status}`);
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
 export const getPerson = (id: string) => {
     return fetch(
         `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`

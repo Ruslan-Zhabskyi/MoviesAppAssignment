@@ -10,11 +10,14 @@ const styles = {
     }
 };
 
-const PeopleListPageTemplate: React.FC<PeopleListPageTemplateProps> = ({ people, name, action })=> {
+const PeopleListPageTemplate: React.FC<PeopleListPageTemplateProps> = ({ people, name, action, onBack, onForward })=> {
     return (
         <Grid container sx={styles.root}>
             <Grid item xs={12}>
-                <Header title={name} />
+                <Header
+                    title={name}
+                    onBack={onBack}
+                    onForward={onForward}/>
             </Grid>
             <Grid item container spacing={5}>
                 <PeopleList action={action} people={people}></PeopleList>
