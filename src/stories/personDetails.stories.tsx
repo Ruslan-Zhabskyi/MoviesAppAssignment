@@ -1,21 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import PersonDetails from "../components/peopleDetails";
 import SamplePerson from "./peopleSampleData";
-import { MemoryRouter } from "react-router";
-import PeopleContextProvider from "../contexts/peopleContext.tsx";
 
-const meta = {
-    title: "People Page/PersonDetails",
+const queryClient = new QueryClient();
+
+export default {
+    title: 'People Page/PersonDetails',
     component: PersonDetails,
     decorators: [
-        (Story) => <MemoryRouter initialEntries={["/"]}>{Story()}</MemoryRouter>,
-        (Story) => <PeopleContextProvider>{Story()}</PeopleContextProvider>,
+        (Story) => (
+            <QueryClientProvider client={queryClient}>
+                {Story()}
+            </QueryClientProvider>
+        )
     ],
-} satisfies Meta<typeof PersonDetails>;
-export default meta;
+} as Meta<typeof PersonDetails>;
 
-type Story = StoryObj<typeof meta>;
-export const Basic: Story = {
-    args: SamplePerson
+export const Basic: StoryObj<typeof PersonDetails> = {
+    args: {
+        ...SamplePerson
+    }
 };
-Basic.storyName = "Default";
