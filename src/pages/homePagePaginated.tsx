@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
     const displayedMovies = filterFunction(movies);
 
     const handlePrevPage = () => {
-        setCurrentPage(old => Math.max(old - 1, 1));
+        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
     };
 
     const handleNextPage = () => {

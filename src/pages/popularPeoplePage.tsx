@@ -52,7 +52,7 @@ const PopularPeoplePage: React.FC = () => {
     }
 
     const handlePrevPage = () => {
-        setCurrentPage(old => Math.max(old - 1, 1));
+        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
     };
 
     const handleNextPage = () => {

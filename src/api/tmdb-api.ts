@@ -182,6 +182,19 @@ export const getPopularMovies = () => {
         });
 };
 
+export const getPopularMoviesPaginated = ({page}) => {
+    return fetch(
+        `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+    ).then((response) => {
+        if (!response.ok)
+            throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
 export const getTrendingTV = () => {
     return fetch(
         `https://api.themoviedb.org/3/trending/tv/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`

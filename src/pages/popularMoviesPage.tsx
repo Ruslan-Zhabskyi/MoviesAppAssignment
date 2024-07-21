@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { getPopularMovies } from "../api/tmdb-api";
+import {getPopularMoviesPaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
@@ -23,7 +23,13 @@ const genreFiltering = {
 };
 
 const PopularMoviesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("trending movies", getPopularMovies);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        ["trending", currentPage],
+        () => getPopularMoviesPaginated({ page: currentPage }),
+        { keepPreviousData: true }
+    );
+
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -48,11 +54,20 @@ const PopularMoviesPage: React.FC = () => {
 
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
+    const handlePrevPage = () => {
+        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
+    };
 
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
     return (
         <>
             <PageTemplate
                 title="Trending Movies"
+                onBack={handlePrevPage}
+                onForward={handleNextPage}
+
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToFavouritesIcon {...movie} />
