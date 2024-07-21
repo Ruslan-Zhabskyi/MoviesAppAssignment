@@ -60,9 +60,7 @@ const HomePage: React.FC = () => {
     };
 
     const handleNextPage = () => {
-        if (data && data.page < data.total_pages) {
-            setCurrentPage(currentPage + 1);
-        }
+        setCurrentPage(currentPage + 1);
     };
 
     return (

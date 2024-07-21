@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import {getUpcomingMovies} from "../api/tmdb-api";
+import {getUpcomingMoviesPaginated, getUpcomingMovies} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import {BaseMovieProps, UpcomingMovies} from "../types/interfaces";
+import {BaseMovieProps, DiscoverMovies, UpcomingMovies} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
@@ -23,7 +23,12 @@ const genreFiltering = {
 };
 
 const UpcomingMoviesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<UpcomingMovies, Error>("upcoming", getUpcomingMovies);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        ["upcoming", currentPage],
+        () => getUpcomingMoviesPaginated({ page: currentPage }),
+        { keepPreviousData: true }
+    );
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -48,11 +53,19 @@ const UpcomingMoviesPage: React.FC = () => {
 
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
+    const handlePrevPage = () => {
+        setCurrentPage(old => Math.max(old - 1, 1));
+    };
 
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
     return (
         <>
             <PageTemplate
                 title="Upcoming Movies"
+                onBack={handlePrevPage}
+                onForward={handleNextPage}
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToWatchListIcon {...movie} />
