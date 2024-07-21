@@ -21,15 +21,17 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
     args: {
         person: SamplePerson,
+        action: (person ) => <AddToFavouritesIcon {...person} />,
     }
 
 };
 Basic.storyName = "Default";
 
-const sampleNoPoster = { ...SamplePerson, poster_path: undefined };
+const sampleNoPoster = { ...SamplePerson, profile_path: undefined };
 export const Exceptional: Story = {
     args: {
         person: sampleNoPoster,
+        action: (person ) => <AddToFavouritesIcon {...person} />,
     }
 };
 Exceptional.storyName = "Exception";

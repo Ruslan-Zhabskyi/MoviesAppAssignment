@@ -24,7 +24,6 @@ export const Basic: Story = {
   args: {
     action: (movie ) => <AddToFavouritesIcon {...movie} />,
     movie: SampleMovie,
-
   }
 
 };

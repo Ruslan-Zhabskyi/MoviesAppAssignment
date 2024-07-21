@@ -4,6 +4,8 @@ import PeopleList from "../components/peopleList";
 import SamplePerson from "./peopleSampleData";
 import { MemoryRouter } from "react-router";
 import Grid from "@mui/material/Grid";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites.tsx";
+import React from "react";
 
 const meta = {
     title: "People Page/PeopleList",
@@ -28,6 +30,7 @@ export const Basic = () => {
         <Grid container spacing={5}>
             <PeopleList
                 people={people}
+                action={(person) => <AddToFavouritesIcon {...person} />}
             />
         </Grid>
     );
