@@ -22,6 +22,7 @@ import LoginPage from "./pages/loginPage.tsx";
 import ProtectedRoute from "./components/protectedRoute/protectedRoute.tsx";
 import AuthProvider from "./contexts/authContext";
 import FavouriteActorsPage from "./pages/favouriteActorsPage.tsx";
+import HomePagePaginated from "./pages/homePagePaginated.tsx";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -59,7 +60,7 @@ const App = () => {
                                    element={<ProtectedRoute> <FavouriteMoviesPage/> </ProtectedRoute>}/>
                             <Route path="/login" element={<LoginPage/>}/>
                             <Route path="/movies/:id" element={<MoviePage/>}/>
-                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/" element={<HomePagePaginated/>}/>
                             <Route path="*" element={<Navigate to="/"/>}/>
                         </Routes>
                     </PeopleContextProvider>

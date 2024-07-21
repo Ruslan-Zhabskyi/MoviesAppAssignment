@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { getMovies } from "../api/tmdb-api";
+import { getMoviesPaginated } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
@@ -23,7 +23,13 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        ["discover", currentPage],
+        () => getMoviesPaginated({ page: currentPage }),
+        { keepPreviousData: true }
+    );
+
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -49,20 +55,36 @@ const HomePage: React.FC = () => {
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
 
+    const handlePrevPage = () => {
+        setCurrentPage(old => Math.max(old - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        if (data && data.page < data.total_pages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     return (
         <>
+
             <PageTemplate
                 title="Discover Movies"
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToFavouritesIcon {...movie} />
                 }}
+
             />
             <MovieFilterUI
                 onFilterValuesChange={changeFilterValues}
                 titleFilter={filterValues[0].value}
                 genreFilter={filterValues[1].value}
             />
+            <div>
+                <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
+                <button onClick={handleNextPage} disabled={!data || !data.results.length}>Next</button>
+            </div>
         </>
     );
 };
