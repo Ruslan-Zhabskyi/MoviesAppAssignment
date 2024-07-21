@@ -205,3 +205,27 @@ export const getTrendingTVSecond = () => {
             throw error;
         });
 };
+
+export const getTrendingTVSecondPaginated = ({page}) => {
+    return fetch(
+        `https://api.themoviedb.org/3/trending/tv/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+    ).then((response) => {
+        if (!response.ok)
+            throw new Error(`Unable to fetch TV series. Response status: ${response.status}`);
+        return response.json();
+    })
+        .then((data) => {
+            return {
+                ...data,
+                results: data.results.map((tvShow: any) => ({
+                    ...tvShow,
+                    title: tvShow.name,
+                    release_date: tvShow.first_air_date,
+                    name: undefined
+                }))
+            };
+        })
+        .catch((error) => {
+            throw error;
+        });
+};

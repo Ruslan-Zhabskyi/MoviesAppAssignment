@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import {getTrendingTV, getTrendingTVSecond} from "../api/tmdb-api";
+import {getTrendingTVSecondPaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import { BaseTVProps, DiscoverTV } from "../types/interfaces";
+import {BaseTVProps, DiscoverMovies, DiscoverTV} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
@@ -23,7 +23,13 @@ const genreFiltering = {
 };
 
 const TvSeriesPage: React.FC = () => {
-    const { data, error, isLoading, isError } = useQuery<DiscoverTV, Error>("tv series", getTrendingTVSecond);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        ["tv series", currentPage],
+        () => getTrendingTVSecondPaginated({ page: currentPage }),
+        { keepPreviousData: true }
+    );
+
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
     );
@@ -48,11 +54,20 @@ const TvSeriesPage: React.FC = () => {
 
     const tv = data ? data.results : [];
     const displayedTV = filterFunction(tv);
+    const handlePrevPage = () => {
+        setCurrentPage(old => Math.max(old - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
 
     return (
         <>
             <PageTemplate
                 title="Trending TV Series"
+                onBack={handlePrevPage}
+                onForward={handleNextPage}
                 movies={displayedTV}
                 action={(tv: BaseTVProps) => {
                     return <AddToFavouritesIcon {...tv} />
