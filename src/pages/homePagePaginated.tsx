@@ -70,21 +70,19 @@ const HomePage: React.FC = () => {
 
             <PageTemplate
                 title="Discover Movies"
+                onBack={handlePrevPage}
+                onForward={handleNextPage}
+
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToFavouritesIcon {...movie} />
                 }}
-
             />
             <MovieFilterUI
                 onFilterValuesChange={changeFilterValues}
                 titleFilter={filterValues[0].value}
                 genreFilter={filterValues[1].value}
             />
-            <div>
-                <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
-                <button onClick={handleNextPage} disabled={!data || !data.results.length}>Next</button>
-            </div>
         </>
     );
 };

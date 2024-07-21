@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
 import MovieList from "../movieList";
@@ -10,11 +10,14 @@ const styles = {
     }
 };
 
-const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({ movies, title, action })=> {
+const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({ movies, title, action , onBack, onForward })=> {
     return (
         <Grid container sx={styles.root}>
             <Grid item xs={12}>
-                <Header title={title} />
+                <Header
+                    title={title}
+                    onBack={onBack}
+                    onForward={onForward}/>
             </Grid>
             <Grid item container spacing={5}>
                 <MovieList action={action} movies={movies}></MovieList>

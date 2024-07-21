@@ -52,6 +52,8 @@ export type FilterOption = "title" | "genre";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
     title: string;
+    onBack: () => void;
+    onForward: () => void;
 }
 
 export interface Review{

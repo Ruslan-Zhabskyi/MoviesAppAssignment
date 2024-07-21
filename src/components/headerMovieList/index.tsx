@@ -17,15 +17,16 @@ const styles = {
 
 interface HeaderProps {
     title: string;
+    onBack: () => void;
+    onForward: () => void;
 }
 
-const Header: React.FC<HeaderProps> = (headerProps) => {
-    const title = headerProps.title
-
+const Header: React.FC<HeaderProps> = ({ title, onBack, onForward }) => {
     return (
         <Paper component="div" sx={styles.root}>
             <IconButton
                 aria-label="go back"
+                onClick={onBack}
             >
                 <ArrowBackIcon color="primary" fontSize="large" />
             </IconButton>
@@ -35,6 +36,7 @@ const Header: React.FC<HeaderProps> = (headerProps) => {
             </Typography>
             <IconButton
                 aria-label="go forward"
+                onClick={onForward}
             >
                 <ArrowForwardIcon color="primary" fontSize="large" />
             </IconButton>
