@@ -13,7 +13,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext } from "react";
-import TranslatorFilterUI from "../translatorUI";
+import TranslatorUI from "../translatorUI";
 
 
 const styles = {
@@ -138,7 +138,8 @@ const SiteHeader: React.FC = () => {
                                     Login
                                 </Button>
                             )}
-                            <TranslatorFilterUI/>
+
+                            <TranslatorUI/>
 
                             {/*<Button*/}
                             {/*    id="basic-button"*/}

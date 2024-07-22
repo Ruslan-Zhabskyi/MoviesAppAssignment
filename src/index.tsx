@@ -23,6 +23,7 @@ import ProtectedRoute from "./components/protectedRoute/protectedRoute.tsx";
 import AuthProvider from "./contexts/authContext";
 import FavouriteActorsPage from "./pages/favouriteActorsPage.tsx";
 import HomePagePaginated from "./pages/homePagePaginated.tsx";
+import LanguageProvider from "./contexts/languageContext";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -40,6 +41,7 @@ const App = () => {
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
                 <AuthProvider>
+                    <LanguageProvider>
                     <SiteHeader/>
                     <MoviesContextProvider>
                     <PeopleContextProvider>
@@ -65,6 +67,7 @@ const App = () => {
                         </Routes>
                     </PeopleContextProvider>
                     </MoviesContextProvider>
+                        </LanguageProvider>
                 </AuthProvider>
             </BrowserRouter>
             <ReactQueryDevtools initialIsOpen={false}/>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMoviesPaginated } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -10,6 +10,7 @@ import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import { LanguageContext } from "../contexts/languageContext";
 
 const titleFiltering = {
     name: "title",
@@ -23,10 +24,12 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const [currentPage, setCurrentPage] = useState(1);
+
     const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-        ["discover", currentPage],
-        () => getMoviesPaginated({ page: currentPage }),
+        ["discover", currentPage, language],  // Include language in the query key
+        () => getMoviesPaginated({ page: currentPage, language }),
         { keepPreviousData: true }
     );
 
@@ -41,7 +44,6 @@ const HomePage: React.FC = () => {
     if (isError) {
         return <h1>{error.message}</h1>;
     }
-
 
     const changeFilterValues = (type: string, value: string) => {
         const changedFilter = { name: type, value: value };
@@ -65,12 +67,10 @@ const HomePage: React.FC = () => {
 
     return (
         <>
-
             <PageTemplate
                 title="Discover Movies"
                 onBack={handlePrevPage}
                 onForward={handleNextPage}
-
                 movies={displayedMovies}
                 action={(movie: BaseMovieProps) => {
                     return <AddToFavouritesIcon {...movie} />
@@ -84,4 +84,5 @@ const HomePage: React.FC = () => {
         </>
     );
 };
+
 export default HomePage;

@@ -1,28 +1,17 @@
+import React, { useContext } from "react";
 import LanguageIcon from '@mui/icons-material/Language';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import React, {useState} from "react";
-
+import { LanguageContext } from "../../contexts/languageContext";
 const TranslatorFilterUI = () => {
-
-    const [language, setLanguage] = useState("en-US");
-    const handleButtonClick = () => {
-        if (language == 'en-US') {
-            setLanguage('uk-UA');
-            console.log('Language changed to uk-UA');
-        } else {
-            setLanguage('en-US');
-            console.log('Language changed to en-US');
-        }
-    };
+    const { language, toggleLanguage } = useContext(LanguageContext);
     return (
-            <IconButton aria-label="translate" onClick={handleButtonClick}>
-                <LanguageIcon color="inherit"/>
-                <Typography variant="caption" sx={{ ml: 0 }}>
-                    {language === 'en-US' ? 'en' : 'ua'}
-                </Typography>
-            </IconButton>
+        <IconButton aria-label="translate" onClick={toggleLanguage}>
+            <LanguageIcon color="inherit"/>
+            <Typography variant="caption" sx={{ ml: 0 }}>
+                {language === 'en-US' ? 'en' : 'ua'}
+            </Typography>
+        </IconButton>
     );
 };
-
-export default TranslatorFilterUI
+export default TranslatorFilterUI;
