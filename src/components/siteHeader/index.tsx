@@ -13,6 +13,8 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext } from "react";
+import TranslatorFilterUI from "../translatorUI";
+
 
 const styles = {
     title: {
@@ -23,12 +25,22 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+
+
     const { token, signout } = useContext(AuthContext) || {};
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     const menuOptions = [
         { label: "Home", path: "/" },
@@ -39,7 +51,7 @@ const SiteHeader: React.FC = () => {
         { label: "Watch Later", path: "/movies/upcoming/watchlater" },
         { label: "Popular Actors", path: "/popular/people" },
         {label: "Favourite Actors", path: "/people/favourite" },
-        { label: "My Fantasy Movie", path: "/fantasy" },
+        {label: "My Fantasy Movie", path: "/fantasy" },
 
     ];
 
@@ -50,6 +62,8 @@ const SiteHeader: React.FC = () => {
     const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
+
 
     return (
         <>
@@ -72,8 +86,10 @@ const SiteHeader: React.FC = () => {
                                 color="inherit"
                                 size="large"
                             >
-                                <MenuIcon />
+                                <MenuIcon/>
                             </IconButton>
+
+
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
@@ -95,7 +111,9 @@ const SiteHeader: React.FC = () => {
                                         onClick={() => handleMenuSelect(opt.path)}
                                     >
                                         {opt.label}
+
                                     </MenuItem>
+
                                 ))}
                             </Menu>
                         </>
@@ -120,12 +138,44 @@ const SiteHeader: React.FC = () => {
                                     Login
                                 </Button>
                             )}
+                            <TranslatorFilterUI/>
+
+                            {/*<Button*/}
+                            {/*    id="basic-button"*/}
+                            {/*    color="inherit"*/}
+                            {/*    aria-controls={open ? 'basic-menu' : undefined}*/}
+                            {/*    aria-haspopup="true"*/}
+                            {/*    aria-expanded={open ? 'true' : undefined}*/}
+                            {/*    onClick={handleClick}*/}
+                            {/*>*/}
+                            {/*    Movies*/}
+                            {/*</Button>*/}
+                            {/*<Menu*/}
+                            {/*    id="basic-menu"*/}
+                            {/*    anchorEl={anchorEl}*/}
+                            {/*    open={open}*/}
+                            {/*    onClose={handleClose}*/}
+                            {/*    MenuListProps={{*/}
+                            {/*        'aria-labelledby': 'basic-button',*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    {menuOptions.slice(0, 2).map((opt) => (*/}
+                            {/*        <MenuItem*/}
+                            {/*            key={opt.label}*/}
+                            {/*            onClick={() => handleMenuSelect(opt.path)}*/}
+                            {/*        >*/}
+                            {/*            {opt.label}*/}
+                            {/*        </MenuItem>*/}
+                            {/*    ))}*/}
+                            {/*</Menu>*/}
+
 
                         </>
                     )}
+
                 </Toolbar>
             </AppBar>
-            <Offset />
+            <Offset/>
         </>
     );
 };
