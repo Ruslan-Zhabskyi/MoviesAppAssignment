@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import {getUpcomingMoviesPaginated, getUpcomingMovies} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -10,6 +10,7 @@ import {BaseMovieProps, DiscoverMovies, UpcomingMovies} from "../types/interface
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList';
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const titleFiltering = {
     name: "title",
@@ -23,10 +24,11 @@ const genreFiltering = {
 };
 
 const UpcomingMoviesPage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const [currentPage, setCurrentPage] = useState(1);
     const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-        ["upcoming", currentPage],
-        () => getUpcomingMoviesPaginated({ page: currentPage }),
+        ["upcoming", currentPage, language],
+        () => getUpcomingMoviesPaginated({ page: currentPage, language}),
         { keepPreviousData: true }
     );
     const { filterValues, setFilterValues, filterFunction } = useFiltering(

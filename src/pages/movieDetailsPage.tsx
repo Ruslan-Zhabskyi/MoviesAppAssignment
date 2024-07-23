@@ -1,4 +1,4 @@
-import React from "react"; // replace existing react import
+import React, {useContext} from "react"; // replace existing react import
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
@@ -7,8 +7,10 @@ import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
 import { MovieDetailsProps } from "../types/interfaces";
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const MovieDetailsPage: React.FC= () => {
+    const { language } = useContext(LanguageContext);
     const { id } = useParams();
     const { data: movie, error, isLoading, isError } = useQuery<MovieDetailsProps, Error>(
         ["movie", id],

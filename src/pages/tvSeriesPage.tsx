@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import {getTrendingTVSecondPaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -10,6 +10,7 @@ import {BaseTVProps, DiscoverMovies, DiscoverTV} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const titleFiltering = {
     name: "title",
@@ -23,10 +24,11 @@ const genreFiltering = {
 };
 
 const TvSeriesPage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const [currentPage, setCurrentPage] = useState(1);
     const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-        ["tv series", currentPage],
-        () => getTrendingTVSecondPaginated({ page: currentPage }),
+        ["tv series", currentPage, language],
+        () => getTrendingTVSecondPaginated({ page: currentPage, language}),
         { keepPreviousData: true }
     );
 

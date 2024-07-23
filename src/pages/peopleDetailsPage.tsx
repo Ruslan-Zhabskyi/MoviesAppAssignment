@@ -1,4 +1,4 @@
-import React from "react"; // replace existing react import
+import React, {useContext} from "react"; // replace existing react import
 import { useParams } from "react-router-dom";
 import PeopleDetails from "../components/peopleDetails";
 import PageTemplate from "../components/templatePeoplePage";
@@ -7,8 +7,10 @@ import { getPerson } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
 import {BasePeopleProps} from "../types/interfaces";
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const PersonDetailsPage: React.FC= () => {
+    const { language } = useContext(LanguageContext);
     const { id } = useParams();
     const { data: person, error, isLoading, isError } = useQuery<BasePeopleProps, Error>(
         ["person", id],

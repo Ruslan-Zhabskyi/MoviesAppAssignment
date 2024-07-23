@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import PageTemplate from "../components/templatePeopleListPage";
 import {getPeoplePaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -8,13 +8,14 @@ import {BasePeopleProps, DiscoverMovies, DiscoverPeople} from "../types/interfac
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavouritePeople";
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const PopularPeoplePage: React.FC = () => {
-
+    const { language } = useContext(LanguageContext);
     const [currentPage, setCurrentPage] = useState(1);
     const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-        ["popular", currentPage],
-        () => getPeoplePaginated({ page: currentPage }),
+        ["popular", currentPage, language],
+        () => getPeoplePaginated({ page: currentPage, language}),
         { keepPreviousData: true }
     );
 
