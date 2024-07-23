@@ -13,8 +13,8 @@ const PersonDetailsPage: React.FC= () => {
     const { language } = useContext(LanguageContext);
     const { id } = useParams();
     const { data: person, error, isLoading, isError } = useQuery<BasePeopleProps, Error>(
-        ["person", id],
-        ()=> getPerson(id||"")
+        ["person", id, language],
+        ()=> getPerson(id||"", language)
     );
 
     if (isLoading) {
