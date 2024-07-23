@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
-import { MovieDetailsProps, Review } from "../../types/interfaces"; // Import the MovieT type from the appropriate location
+import { MovieDetailsProps, Review } from "../../types/interfaces";
+import {LanguageContext} from "../../contexts/languageContext.tsx"; // Import the MovieT type from the appropriate location
 
 const styles = {
     table: {
@@ -19,10 +20,11 @@ const styles = {
 };
 
 const MovieReviews: React.FC<MovieDetailsProps> = (movie) => {
+    const { language } = useContext(LanguageContext);
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        getMovieReviews(movie.id).then((reviews) => {
+        getMovieReviews(movie.id, language).then((reviews) => {
             setReviews(reviews);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
