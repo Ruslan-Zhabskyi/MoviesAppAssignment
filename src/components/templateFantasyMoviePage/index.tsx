@@ -5,7 +5,7 @@ import {BaseFantasyMovieProps, MovieDetailsProps} from "../../types/interfaces";
 
 const styles = {
     root: {
-        backgroundColor: "#bfbfbf",
+        backgroundColor: "#fffefe",
     }
 };
 interface TemplateFantasyPageProps {
