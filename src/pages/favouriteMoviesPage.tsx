@@ -11,6 +11,7 @@ import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const titleFiltering = {
     name: "title",
@@ -24,6 +25,7 @@ const genreFiltering = {
 };
 
 const FavouriteMoviesPage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const { favourites: movieIds } = useContext(MoviesContext);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
@@ -33,8 +35,8 @@ const FavouriteMoviesPage: React.FC = () => {
     const favouriteMovieQueries = useQueries(
         movieIds.map((movieId) => {
             return {
-                queryKey: ["movie", movieId],
-                queryFn: () => getMovie(movieId.toString()),
+                queryKey: ["movie", movieId, language],
+                queryFn: () => getMovie(movieId.toString(), language),
             };
         })
     );

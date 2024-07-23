@@ -13,8 +13,8 @@ const MovieDetailsPage: React.FC= () => {
     const { language } = useContext(LanguageContext);
     const { id } = useParams();
     const { data: movie, error, isLoading, isError } = useQuery<MovieDetailsProps, Error>(
-        ["movie", id],
-        ()=> getMovie(id||"")
+        ["movie", id, language],
+        ()=> getMovie(id||"", language)
     );
 
     if (isLoading) {

@@ -18,6 +18,7 @@ const nameFiltering = {
 };
 
 const FavouritePeoplePage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const { favouritePeople: peopleIds } = useContext(PeopleContext);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [nameFiltering]
@@ -27,8 +28,8 @@ const FavouritePeoplePage: React.FC = () => {
     const favouritePeopleQueries = useQueries(
         peopleIds.map((personId) => {
             return {
-                queryKey: ["person", personId],
-                queryFn: () => getPerson(personId.toString()),
+                queryKey: ["person", personId, language],
+                queryFn: () => getPerson(personId.toString(), language),
             };
         })
     );

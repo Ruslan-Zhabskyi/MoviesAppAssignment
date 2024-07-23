@@ -11,6 +11,7 @@ import MovieFilterUI, {
     genreFilter,
 } from "../components/movieFilterUI";
 import RemoveFromWatchLater from "../components/cardIcons/removeFromWatchList";
+import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const titleFiltering = {
     name: "title",
@@ -24,6 +25,7 @@ const genreFiltering = {
 };
 
 const WatchLaterMoviePage: React.FC = () => {
+    const { language } = useContext(LanguageContext);
     const { watchLater: movieIds } = useContext(MoviesContext);
     const { filterValues, setFilterValues, filterFunction } = useFiltering(
         [titleFiltering, genreFiltering]
@@ -33,8 +35,8 @@ const WatchLaterMoviePage: React.FC = () => {
     const watchLaterMovieQueries = useQueries(
         movieIds.map((movieId) => {
             return {
-                queryKey: ["movie", movieId],
-                queryFn: () => getMovie(movieId.toString()),
+                queryKey: ["movie", movieId, language],
+                queryFn: () => getMovie(movieId.toString(), language),
             };
         })
     );

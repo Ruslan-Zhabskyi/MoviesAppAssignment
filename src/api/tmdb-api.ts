@@ -24,9 +24,9 @@ export const getMoviesPaginated = ({ page, language }) => {
         });
 };
 
-export const getMovie = (id: string) => {
+export const getMovie = (id: string, language: string) => {
     return fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}`
     ).then((response) => {
         if (!response.ok) {
             throw new Error(`Failed to get movie data. Response status: ${response.status}`);
@@ -38,9 +38,9 @@ export const getMovie = (id: string) => {
         });
 };
 
-export const getGenres = () => {
+export const getGenres = (language: string) => {
     return fetch(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=" + import.meta.env.VITE_TMDB_KEY + "&language=en-US"
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}`
     ).then( (response) => {
         if (!response.ok)
             throw new Error(`Unable to fetch genres. Response status: ${response.status}`);
@@ -65,9 +65,9 @@ export const getMovieImages = (id: string | number) => {
         });
 };
 
-export const getMovieReviews = (id: string | number) => { //movie id can be string or number
+export const getMovieReviews = (id: string | number, language: string) => { //movie id can be string or number
     return fetch(
-        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}`
     )
         .then((res) => res.json())
         .then((json) => {
