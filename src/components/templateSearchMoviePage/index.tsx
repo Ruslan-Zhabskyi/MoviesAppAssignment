@@ -1,19 +1,20 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import {BaseMultiSearchMovieProps} from "../../types/interfaces";
+import {BaseMultiSearchMovieProps, MovieListPageTemplateProps} from "../../types/interfaces";
+import MovieList from "../movieList";
 
 const styles = {
     root: {
         backgroundColor: "#fffefe",
     }
 };
-interface TemplateFantasyPageProps {
+interface TemplateSearchPageProps {
     pageTitle: "string";
-    movie: BaseMultiSearchMovieProps;
+    movies: MovieListPageTemplateProps;
     children: React.ReactElement;
 }
-const SearchMoviePageTemplate: React.FC<TemplateFantasyPageProps> = ({ movie, pageTitle,  children })=> {
+const SearchMoviePageTemplate: React.FC<TemplateSearchPageProps> = ({ movies, pageTitle,  children })=> {
     return (
         <Grid container sx={styles.root}>
             <Grid item xs={12}>

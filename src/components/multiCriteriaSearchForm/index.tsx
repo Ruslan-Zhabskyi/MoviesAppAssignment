@@ -40,20 +40,11 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
         reset,
     } = useForm<BaseMultiSearchMovieProps>(defaultValues);
 
-    const navigate = useNavigate();
-    const [open, setOpen] = useState(false);  //NEW
-    const context = useContext(MoviesContext);
     const [isInvalidInput, setIsInvalidInput] = useState(false);
 
-    const handleSnackClose = () => {
-        setOpen(false);
-        navigate("/search");
-    };
-
     const onSubmit: SubmitHandler<BaseMultiSearchMovieProps> = (movie) => {
-        setOpen(true);
-        getMovieSearch(movie.language,movie.primary_release_year, movie.vote_average_gte, movie.vote_average_lte,  movie.with_origin_country, movie.with_original_language, movie.with_genres);
-        console.log(movie);
+        const moviesSearch =  getMovieSearch(movie.language,movie.primary_release_year, movie.vote_average_gte, movie.vote_average_lte,  movie.with_origin_country, movie.with_original_language, movie.with_genres);
+        console.log(moviesSearch);
     };
     return (
         <Box component="div" sx={styles.root}>
