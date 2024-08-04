@@ -176,6 +176,16 @@ export interface BaseFantasyMovieProps {
     production_company: string[];
 }
 
+export interface BaseMultiSearchMovieProps {
+    language: string;
+    primary_release_year: string | number;
+    vote_average_gte: string | number;
+    vote_average_lte: string | number;
+    with_origin_country: string;
+    with_original_language: string;
+    with_genres: number[];
+}
+
 export interface AuthContextInterface {
     token: string | null;
     authenticate: ((username: string, password: string) => void);
