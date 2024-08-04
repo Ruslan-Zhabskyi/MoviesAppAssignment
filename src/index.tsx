@@ -24,6 +24,7 @@ import AuthProvider from "./contexts/authContext";
 import FavouriteActorsPage from "./pages/favouriteActorsPage.tsx";
 import HomePagePaginated from "./pages/homePagePaginated.tsx";
 import LanguageProvider from "./contexts/languageContext";
+import SearchMoviePage from "./pages/searchMoviePage.tsx";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -53,6 +54,7 @@ const App = () => {
                             <Route path="/popular/people/:id" element={<PersonDetailsPage/>}/>
                             <Route path="/movies/upcoming" element={<UpcomingMoviesPage/>}/>
                             <Route path="/movies/popular" element={<PopularMoviesPage/>}/>
+                            <Route path="/search" element={<ProtectedRoute> <SearchMoviePage/> </ProtectedRoute>}/>
                             <Route path="/fantasy" element={<ProtectedRoute> <FantasyMoviePage/> </ProtectedRoute>}/>
                             <Route path="/tv/trending" element={<TvSeriesPage/>}/>
                             <Route path="/reviews/:id" element={<MovieReviewPage/>}/>
