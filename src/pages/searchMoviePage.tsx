@@ -7,7 +7,6 @@ const SearchMoviePage: React.FC = () => {
         <>
             <PageTemplate pageTitle="Search Movie">
                 <MovieSearchForm />
-
             </PageTemplate>
         </>
     );

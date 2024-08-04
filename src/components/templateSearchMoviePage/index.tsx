@@ -25,6 +25,7 @@ const SearchMoviePageTemplate: React.FC<TemplateSearchPageProps> = ({ movies, pa
             <Grid item xs={9}>
                 {children}
             </Grid>
+
         </Grid>
     );
 }
