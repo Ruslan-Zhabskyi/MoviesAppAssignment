@@ -38,6 +38,27 @@ export const getMovie = (id: string, language: string) => {
         });
 };
 
+export const getMovieSearch = (language: string,
+                               primary_release_year: string | number,
+                               vote_average_gte: string | number,
+                               vote_average_lte: string | number,
+                               with_origin_country: string,
+                               with_original_language: string,
+                               with_genres: number[] ) => {
+    const genres = with_genres.join('|');
+    return fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&include_adult=false&include_video=false&language=${language}&primary_release_year=${primary_release_year}&sort_by=popularity.desc&vote_average.gte=${vote_average_gte}&vote_average.lte=${vote_average_lte}&with_genres=16&with_origin_country=${with_origin_country}&with_original_language=${with_original_language}&with_genres=${genres}`
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`Failed to get movie data. Response status: ${response.status}`);
+        }
+        return response.json();
+    })
+        .catch((error) => {
+            throw error
+        });
+};
+
 export const getGenres = (language: string) => {
     return fetch(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}`
