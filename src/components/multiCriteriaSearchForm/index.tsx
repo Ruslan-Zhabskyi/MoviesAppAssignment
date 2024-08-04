@@ -20,7 +20,7 @@ import { getMovieSearch } from "../../api/tmdb-api";
 const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
     const defaultValues = {
         defaultValues: {
-            language: "",
+            language: "en-US",
             primary_release_year: "",
             vote_average_gte: "",
             vote_average_lte: "",
@@ -180,63 +180,6 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                     </Typography>
                 )}
 
-                <Controller
-                    name="vote_average_gte"
-                    control={control}
-                    rules={{ required: "vote_average_gte is required" }}
-                    defaultValue=""
-                    render={({ field: { onChange, value } }) => (
-                        <TextField
-                            sx={{ width: "40ch" }}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={onChange}
-                            value={value}
-                            id="vote_average_gte"
-                            label="vote_average_gte"
-                            type="date"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            autoFocus
-                        />
-                    )}
-                />
-                {errors.vote_average_gte && (
-                    <Typography variant="h6" color="error">
-                        {errors.vote_average_gte.message}
-                    </Typography>
-                )}
-
-                <Controller
-                    name="vote_average_lte"
-                    control={control}
-                    rules={{ required: "vote_average_lte is required" }}
-                    defaultValue=""
-                    render={({ field: { onChange, value } }) => (
-                        <TextField
-                            sx={{ width: "40ch" }}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={onChange}
-                            value={value}
-                            id="vote_average_lte"
-                            label="vote_average_lte"
-                            type="date"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            autoFocus
-                        />
-                    )}
-                />
-                {errors.vote_average_lte && (
-                    <Typography variant="h6" color="error">
-                        {errors.vote_average_lte.message}
-                    </Typography>
-                )}
 
                 <Controller
                     name="with_genres"
@@ -272,9 +215,9 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                 )}
 
                 <Controller
-                    name="primary_release_year"
+                    name="vote_average_gte"
                     control={control}
-                    rules={{ required: "primary_release_year is required" }}
+                    rules={{ required: "vote_average_gte is required" }}
                     defaultValue=""
                     render={({ field: { onChange, value } }) => (
                         <TextField
@@ -292,8 +235,8 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                                 onChange(onlyNums);
                             }}
                             value={value}
-                            id="primary_release_year"
-                            label="primary_release_year"
+                            id="vote_average_gte"
+                            label="vote_average_gte"
                             autoFocus
                         />
                     )}
@@ -301,12 +244,51 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                 {isInvalidInput && (
 
                     <Typography variant="h6" color="error">
-                        Please enter only number as runtime.
+                        Please enter only number as vote_average_gte.
                     </Typography>
                 )}
-                {errors.primary_release_year && (
+                {errors.vote_average_gte && (
                     <Typography variant="h6" color="error">
-                        {errors.primary_release_year.message}
+                        {errors.vote_average_gte.message}
+                    </Typography>
+                )}
+
+                <Controller
+                    name="vote_average_lte"
+                    control={control}
+                    rules={{ required: "vote_average_lte is required" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <TextField
+                            sx={{ width: "40ch" }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+                                if (e.target.value !== onlyNums) {
+                                    setIsInvalidInput(true);
+                                } else {
+                                    setIsInvalidInput(false);
+                                }
+                                onChange(onlyNums);
+                            }}
+                            value={value}
+                            id="vote_average_lte"
+                            label="vote_average_lte"
+                            autoFocus
+                        />
+                    )}
+                />
+                {isInvalidInput && (
+
+                    <Typography variant="h6" color="error">
+                        Please enter only number as vote_average_lte.
+                    </Typography>
+                )}
+                {errors.vote_average_lte && (
+                    <Typography variant="h6" color="error">
+                        {errors.vote_average_lte.message}
                     </Typography>
                 )}
 
