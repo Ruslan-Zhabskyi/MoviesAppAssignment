@@ -4,7 +4,7 @@ import MovieSearchForm from "../components/multiCriteriaSearchForm";
 const SearchMoviePage: React.FC = () => {
     return (
         <>
-            <PageTemplate pageTitle="Fantasy Movie">
+            <PageTemplate pageTitle="Search Movie">
                 <MovieSearchForm />
             </PageTemplate>
         </>

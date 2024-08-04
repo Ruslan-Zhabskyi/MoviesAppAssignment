@@ -61,23 +61,6 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                 Movie Search
             </Typography>
 
-            <Snackbar
-                sx={styles.snack}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                open={open}
-                onClose={handleSnackClose}
-            >
-                <Alert
-                    severity="success"
-                    variant="filled"
-                    onClose={handleSnackClose}
-                >
-                    <Typography variant="h4">
-                        The movie is found
-                    </Typography>
-                </Alert>
-            </Snackbar>
-
             <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
 
                 <Controller
