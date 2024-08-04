@@ -6,14 +6,15 @@ import Box from "@mui/material/Box";
 import { Select, InputLabel, FormControl, Grid } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import styles from "./styles";
-import {BaseMultiSearchMovieProps, GenreData} from "../../types/interfaces";
+import {BaseMovieListProps, BaseMovieProps, BaseMultiSearchMovieProps, GenreData} from "../../types/interfaces";
 import {useQuery} from "react-query";
 import {getGenres} from "../../api/tmdb-api.ts";
 import MenuItem from "@mui/material/MenuItem";
 import { getMovieSearch } from "../../api/tmdb-api";
 import MovieList from "../movieList";
+import AddToFavouritesIcon from "../cardIcons/addToFavourites.tsx";
 
-const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
+const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
     const defaultValues = {
         defaultValues: {
             language: "en-US",
@@ -50,7 +51,7 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                 movie.with_original_language,
                 movie.with_genres
             );
-            setMoviesSearch(moviesSearch.results);
+            setMoviesSearch(moviesSearch.results || []);
             setMoviesSearchJson(JSON.stringify(moviesSearch.results, null, 2));
             console.log(moviesSearch.results);
             console.log(moviesSearch);
@@ -304,7 +305,15 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
                     </Button>
                 </Box>
             </form>
-            <pre>{moviesSearchJson}</pre>
+
+            <Grid item container spacing={5}>
+                <MovieList action={(movie: BaseMovieProps) => {
+                    return <AddToFavouritesIcon {...movie} />
+                }}
+
+                           movies={moviesSearch}></MovieList>
+            </Grid>
+
         </Box>
     );
 };
