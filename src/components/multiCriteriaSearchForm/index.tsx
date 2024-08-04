@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Select, InputLabel, FormControl, Grid } from '@mui/material';
+import {Select, InputLabel, FormControl, Grid, Slider, Rating} from '@mui/material';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import styles from "./styles";
 import {BaseMovieListProps, BaseMovieProps, BaseMultiSearchMovieProps, GenreData} from "../../types/interfaces";
@@ -13,12 +13,14 @@ import MenuItem from "@mui/material/MenuItem";
 import { getMovieSearch } from "../../api/tmdb-api";
 import MovieList from "../movieList";
 import AddToFavouritesIcon from "../cardIcons/addToFavourites.tsx";
+import {LanguageContext} from "../../contexts/languageContext.tsx";
 
 const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
+    const { language } = useContext(LanguageContext);
     const defaultValues = {
         defaultValues: {
-            language: "en-US",
-            primary_release_year: "2020",
+            language: language,
+            primary_release_year: "2024",
             vote_average_gte: "1",
             vote_average_lte: "10",
             with_origin_country: "US",
@@ -49,7 +51,7 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
                 movie.vote_average_lte,
                 movie.with_origin_country,
                 movie.with_original_language,
-                movie.with_genres
+                movie.with_genres,
             );
             setMoviesSearch(moviesSearch.results || []);
             setMoviesSearchJson(JSON.stringify(moviesSearch.results, null, 2));
@@ -66,31 +68,6 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
             </Typography>
 
             <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-
-                <Controller
-                    name="language"
-                    control={control}
-                    rules={{required: "Language is required"}}
-                    defaultValue=""
-                    render={({field: {onChange, value}}) => (
-                        <TextField
-                            sx={{width: "40ch"}}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={onChange}
-                            value={value}
-                            id="language"
-                            label="language"
-                            autoFocus
-                        />
-                    )}
-                />
-                {errors.language && (
-                    <Typography variant="h6" color="error">
-                        {errors.language.message}
-                    </Typography>
-                )}
 
                 <Controller
                     name="with_origin_country"
@@ -145,28 +122,31 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
                 <Controller
                     name="primary_release_year"
                     control={control}
-                    rules={{required: "primary_release_year is required"}}
-                    defaultValue=""
-                    render={({field: {onChange, value}}) => (
-                        <TextField
-                            sx={{width: "40ch"}}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={onChange}
-                            value={value}
-                            id="primary_release_year"
-                            label="primary_release_year"
-                            autoFocus
-                        />
+                    rules={{ required: "Primary release year is required" }}
+                    defaultValue={2024} // Set a reasonable default value for the slider
+                    render={({ field: { onChange, value } }) => (
+                        <Box sx={{ width: "40ch", margin: "normal" }}>
+                            <Typography id="input-slider" gutterBottom>
+                                Primary Release Year: {value}
+                            </Typography>
+                            <Slider
+                                value={typeof value === 'number' ? value : 2020}
+                                onChange={(event, newValue) => {
+                                    onChange(newValue);
+                                }}
+                                aria-labelledby="input-slider"
+                                min={1900}
+                                max={new Date().getFullYear()}
+                                valueLabelDisplay="auto"
+                            />
+                        </Box>
                     )}
                 />
                 {errors.primary_release_year && (
-                    <Typography variant="h6" color="error">
+                    <Typography variant="h6" color="error" sx={{ mt: 2 }}>
                         {errors.primary_release_year.message}
                     </Typography>
                 )}
-
 
                 <Controller
                     name="with_genres"
@@ -201,41 +181,31 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
                     </Typography>
                 )}
 
+
                 <Controller
                     name="vote_average_gte"
                     control={control}
-                    rules={{required: "vote_average_gte is required"}}
-                    defaultValue=""
-                    render={({field: {onChange, value}}) => (
-                        <TextField
-                            sx={{width: "40ch"}}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={(e) => {
-                                const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-                                if (e.target.value !== onlyNums) {
-                                    setIsInvalidInput(true);
-                                } else {
-                                    setIsInvalidInput(false);
-                                }
-                                onChange(onlyNums);
-                            }}
-                            value={value}
-                            id="vote_average_gte"
-                            label="vote_average_gte"
-                            autoFocus
-                        />
+                    rules={{ required: "Minimum vote average is required" }}
+                    defaultValue={1}
+                    render={({ field: { onChange, value } }) => (
+                        <Box sx={{ width: "40ch", margin: "normal" }}>
+                            <Typography gutterBottom>
+                                Minimum Vote Average {[value]}
+                            </Typography>
+                            <Rating
+                                name="vote-average-gte-rating"
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    onChange(newValue);
+                                }}
+                                precision={0.1}
+                                max={10}
+                            />
+                        </Box>
                     )}
                 />
-                {isInvalidInput && (
-
-                    <Typography variant="h6" color="error">
-                        Please enter only number as vote_average_gte.
-                    </Typography>
-                )}
                 {errors.vote_average_gte && (
-                    <Typography variant="h6" color="error">
+                    <Typography variant="h6" color="error" sx={{ mt: 2 }}>
                         {errors.vote_average_gte.message}
                     </Typography>
                 )}
@@ -243,38 +213,27 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
                 <Controller
                     name="vote_average_lte"
                     control={control}
-                    rules={{required: "vote_average_lte is required"}}
-                    defaultValue=""
-                    render={({field: {onChange, value}}) => (
-                        <TextField
-                            sx={{width: "40ch"}}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            onChange={(e) => {
-                                const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-                                if (e.target.value !== onlyNums) {
-                                    setIsInvalidInput(true);
-                                } else {
-                                    setIsInvalidInput(false);
-                                }
-                                onChange(onlyNums);
-                            }}
-                            value={value}
-                            id="vote_average_lte"
-                            label="vote_average_lte"
-                            autoFocus
-                        />
+                    rules={{ required: "Maximum vote average is required" }}
+                    defaultValue={10}
+                    render={({ field: { onChange, value } }) => (
+                        <Box sx={{ width: "40ch", margin: "normal" }}>
+                            <Typography gutterBottom>
+                                Maximum Vote Average {[value]}
+                            </Typography>
+                            <Rating
+                                name="vote-average-lte-rating"
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    onChange(newValue);
+                                }}
+                                precision={0.1}
+                                max={10}
+                            />
+                        </Box>
                     )}
                 />
-                {isInvalidInput && (
-
-                    <Typography variant="h6" color="error">
-                        Please enter only number as vote_average_lte.
-                    </Typography>
-                )}
                 {errors.vote_average_lte && (
-                    <Typography variant="h6" color="error">
+                    <Typography variant="h6" color="error" sx={{ mt: 2 }}>
                         {errors.vote_average_lte.message}
                     </Typography>
                 )}

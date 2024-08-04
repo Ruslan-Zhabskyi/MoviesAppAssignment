@@ -184,6 +184,7 @@ export interface BaseMultiSearchMovieProps {
     with_origin_country: string;
     with_original_language: string;
     with_genres: number[];
+    include_adult:string;
 }
 
 export interface AuthContextInterface {
