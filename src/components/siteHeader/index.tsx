@@ -14,7 +14,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext } from "react";
 import TranslatorUI from "../translatorUI";
-
+import SearchIcon from '@mui/icons-material/Search';
+import LoginIcon from '@mui/icons-material/Login';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const styles = {
     title: {
@@ -52,8 +54,8 @@ const SiteHeader: React.FC = () => {
         { label: "Popular Actors", path: "/popular/people" },
         {label: "Favourite Actors", path: "/people/favourite" },
         {label: "My Fantasy Movie", path: "/fantasy" },
-        {label: "Search", path: "/search" },
-
+        { label: <SearchIcon />, path: "/search", type: "icon" },
+        { label: <TranslatorUI/>, type: "icon" },
     ];
 
     const handleMenuSelect = (pageURL: string) => {
@@ -132,45 +134,13 @@ const SiteHeader: React.FC = () => {
 
                             {token ? (
                                 <Button color="inherit" onClick={() => signout()}>
-                                    Sign out
+                                    <CancelIcon/> Logout
                                 </Button>
                             ) : (
                                 <Button color="inherit" onClick={() => navigate("/login")}>
-                                    Login
+                                    <LoginIcon/> Login
                                 </Button>
                             )}
-
-                            <TranslatorUI/>
-
-                            {/*<Button*/}
-                            {/*    id="basic-button"*/}
-                            {/*    color="inherit"*/}
-                            {/*    aria-controls={open ? 'basic-menu' : undefined}*/}
-                            {/*    aria-haspopup="true"*/}
-                            {/*    aria-expanded={open ? 'true' : undefined}*/}
-                            {/*    onClick={handleClick}*/}
-                            {/*>*/}
-                            {/*    Movies*/}
-                            {/*</Button>*/}
-                            {/*<Menu*/}
-                            {/*    id="basic-menu"*/}
-                            {/*    anchorEl={anchorEl}*/}
-                            {/*    open={open}*/}
-                            {/*    onClose={handleClose}*/}
-                            {/*    MenuListProps={{*/}
-                            {/*        'aria-labelledby': 'basic-button',*/}
-                            {/*    }}*/}
-                            {/*>*/}
-                            {/*    {menuOptions.slice(0, 2).map((opt) => (*/}
-                            {/*        <MenuItem*/}
-                            {/*            key={opt.label}*/}
-                            {/*            onClick={() => handleMenuSelect(opt.path)}*/}
-                            {/*        >*/}
-                            {/*            {opt.label}*/}
-                            {/*        </MenuItem>*/}
-                            {/*    ))}*/}
-                            {/*</Menu>*/}
-
 
                         </>
                     )}
