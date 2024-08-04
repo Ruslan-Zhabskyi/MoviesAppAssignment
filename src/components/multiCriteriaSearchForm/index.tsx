@@ -17,11 +17,11 @@ const multiCriteriaSearchForm: React.FC<BaseMultiSearchMovieProps> = () => {
     const defaultValues = {
         defaultValues: {
             language: "en-US",
-            primary_release_year: "",
-            vote_average_gte: "",
-            vote_average_lte: "",
-            with_origin_country: "",
-            with_original_language: "",
+            primary_release_year: "2020",
+            vote_average_gte: "1",
+            vote_average_lte: "10",
+            with_origin_country: "US",
+            with_original_language: "en",
             with_genres: ""
         }
     };
