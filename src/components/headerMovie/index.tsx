@@ -8,7 +8,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import { MovieDetailsProps } from "../../types/interfaces";
 import Avatar from "@mui/material/Avatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CardHeader from "@mui/material/CardHeader";
 
 const styles = {
     root: {

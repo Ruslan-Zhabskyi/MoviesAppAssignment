@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import {BaseMultiSearchMovieProps, MovieListPageTemplateProps} from "../../types/interfaces";
-import MovieList from "../movieList";
+import {MovieListPageTemplateProps} from "../../types/interfaces";
 
 const styles = {
     root: {
@@ -14,7 +13,7 @@ interface TemplateSearchPageProps {
     movies: MovieListPageTemplateProps;
     children: React.ReactElement;
 }
-const SearchMoviePageTemplate: React.FC<TemplateSearchPageProps> = ({ movies, pageTitle,  children })=> {
+const SearchMoviePageTemplate: React.FC<TemplateSearchPageProps> = ({ pageTitle,  children })=> {
     return (
         <Grid container sx={styles.root}>
             <Grid item xs={12}>
