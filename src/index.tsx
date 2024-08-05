@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Route, Navigate, Routes} from "react-router-dom";
-import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // NEW
 import MovieReviewPage from "./pages/movieReviewPage";

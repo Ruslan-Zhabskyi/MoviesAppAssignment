@@ -36,14 +36,6 @@ const SiteHeader: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-
     const menuOptions = [
         { label: "Home", path: "/" },
         { label: "Upcoming", path: "/movies/upcoming" },

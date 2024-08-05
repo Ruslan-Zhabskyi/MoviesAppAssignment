@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import {getUpcomingMoviesPaginated, getUpcomingMovies} from "../api/tmdb-api";
+import {getUpcomingMoviesPaginated} from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import {BaseMovieProps, DiscoverMovies, UpcomingMovies} from "../types/interfaces";
+import {BaseMovieProps, DiscoverMovies} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToWatchListIcon from '../components/cardIcons/addToWatchList';

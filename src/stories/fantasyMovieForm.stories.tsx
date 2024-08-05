@@ -34,8 +34,8 @@ export const Basic: Story = {
         overview: "",
         release_date: "",
         runtime: "",
-        production_company: "",
-        genre: "",
+        production_company: [],
+        genre: [],
     },
 };
 Basic.storyName = "Default";

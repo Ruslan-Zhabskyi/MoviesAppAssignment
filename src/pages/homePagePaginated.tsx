@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMoviesPaginated } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";

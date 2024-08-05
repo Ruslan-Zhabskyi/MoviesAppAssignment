@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactNode} from "react";  // useState/useEffect redundant
+import React, {ChangeEvent} from "react";  // useState/useEffect redundant
 import { FilterOption } from "../../types/interfaces";
 import {SelectChangeEvent, Slider} from "@mui/material";
 import Card from "@mui/material/Card";

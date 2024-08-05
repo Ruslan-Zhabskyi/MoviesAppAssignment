@@ -33,8 +33,8 @@ export const Basic: Story = {
     args: {
         onUserInput: action("filter input"),
         nameFilter: "",
-        popularityFilter: "50",
-        genderFilter: "1",
+        popularityFilter: 50,
+        genderFilter: 1,
     },
 };
 Basic.storyName = "Default";

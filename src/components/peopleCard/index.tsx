@@ -1,4 +1,4 @@
-import React, {MouseEvent, useContext} from "react";
+import React, {useContext} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -14,7 +14,6 @@ import { BasePeopleProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import { PeopleContext } from "../../contexts/peopleContext";
 import Avatar from "@mui/material/Avatar";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 const styles = {
     card: { maxWidth: 345 },
@@ -31,7 +30,7 @@ interface PeopleCardProps {
 
 const PeopleCard: React.FC<PeopleCardProps> = ({person, action}) => {
 
-    const { favouritePeople, addToFavouritePeople } = useContext(PeopleContext);//NEW
+    const { favouritePeople } = useContext(PeopleContext);//NEW
     const isFavouritePerson = favouritePeople.find((id) => id === person.id)? true : false;//NEW
 
     return (

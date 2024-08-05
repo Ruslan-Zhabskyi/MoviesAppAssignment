@@ -6,7 +6,7 @@ import MovieFilterUI, {
     titleFilter,
     genreFilter,
 } from "../components/movieFilterUI";
-import {BaseTVProps, DiscoverMovies, DiscoverTV} from "../types/interfaces";
+import {BaseTVProps, DiscoverMovies} from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';

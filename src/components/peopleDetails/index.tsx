@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import {BasePeopleProps, PersonSocialMedia, UpcomingMovies} from "../../types/interfaces";
+import {BasePeopleProps, PersonSocialMedia} from "../../types/interfaces";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {useQuery} from "react-query";
-import {getPersonSocialMedia, getUpcomingMovies} from "../../api/tmdb-api.ts";
+import {getPersonSocialMedia} from "../../api/tmdb-api.ts";
 
 
 const styles = {

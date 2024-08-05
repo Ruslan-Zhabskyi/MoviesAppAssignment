@@ -6,7 +6,6 @@ import { useQuery } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import { MovieDetailsProps } from "../types/interfaces";
-import MovieReview from "../components/movieReview";
 import {LanguageContext} from "../contexts/languageContext.tsx";
 
 const WriteReviewPage: React.FC = () => {

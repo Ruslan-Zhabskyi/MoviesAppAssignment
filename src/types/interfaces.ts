@@ -171,7 +171,7 @@ export interface BaseFantasyMovieProps {
     id?: number;
     overview: string;
     release_date: string;
-    runtime: number;
+    runtime: string;
     genre: string[];
     production_company: string[];
 }

@@ -64,9 +64,9 @@ export const getMovieSearch = (language: string,
         });
 };
 
-export const getGenres = (language: string) => {
+export const getGenres = () => {
     return fetch(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}`
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
     ).then( (response) => {
         if (!response.ok)
             throw new Error(`Unable to fetch genres. Response status: ${response.status}`);
@@ -122,18 +122,6 @@ export const getUpcomingMoviesPaginated = (params: GetMoviesPaginatedParams) => 
     ).then((response) => {
         if (!response.ok)
             throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
-        return response.json();
-    })
-        .catch((error) => {
-            throw error
-        });
-};
-export const getPeople = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    ).then((response) => {
-        if (!response.ok)
-            throw new Error(`Unable to fetch people. Response status: ${response.status}`);
         return response.json();
     })
         .catch((error) => {
@@ -197,19 +185,6 @@ export const getPersonImages = (id: string | number) => {
         });
 };
 
-export const getPopularMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-    ).then((response) => {
-        if (!response.ok)
-            throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
-        return response.json();
-    })
-        .catch((error) => {
-            throw error
-        });
-};
-
 export const getPopularMoviesPaginated = (params: GetMoviesPaginatedParams) => {
     const { page, language } = params;
     return fetch(
@@ -223,21 +198,6 @@ export const getPopularMoviesPaginated = (params: GetMoviesPaginatedParams) => {
             throw error
         });
 };
-
-export const getTrendingTV = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/trending/tv/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-    ).then((response) => {
-        if (!response.ok)
-            throw new Error(`Unable to fetch TV series. Response status: ${response.status}`);
-        return response.json();
-    })
-        .catch((error) => {
-            throw error
-        });
-};
-
-
 
 interface TVShow {
     name: string;

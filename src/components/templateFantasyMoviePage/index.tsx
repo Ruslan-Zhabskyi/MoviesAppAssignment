@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import {BaseFantasyMovieProps, MovieDetailsProps} from "../../types/interfaces";
 
 const styles = {
     root: {
@@ -9,11 +8,10 @@ const styles = {
     }
 };
 interface TemplateFantasyPageProps {
-    pageTitle: "string";
-    fantasy: BaseFantasyMovieProps;
+    pageTitle: string;
     children: React.ReactElement;
 }
-const FantasyMoviePageTemplate: React.FC<TemplateFantasyPageProps> = ({ fantasy, pageTitle,  children })=> {
+const FantasyMoviePageTemplate: React.FC<TemplateFantasyPageProps> = ({ pageTitle,  children })=> {
     return (
         <Grid container sx={styles.root}>
             <Grid item xs={12}>
