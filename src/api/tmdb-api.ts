@@ -11,7 +11,12 @@ export const getMovies = () => {
         });
 };
 
-export const getMoviesPaginated = ({ page, language }) => {
+interface GetMoviesPaginatedParams {
+    page: number;
+    language: string;
+}
+export const getMoviesPaginated = (params: GetMoviesPaginatedParams) => {
+    const { page, language } = params;
     return fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {
@@ -110,7 +115,8 @@ export const getUpcomingMovies = () => {
         });
 };
 
-export const getUpcomingMoviesPaginated = ({page, language}) => {
+export const getUpcomingMoviesPaginated = (params: GetMoviesPaginatedParams) => {
+    const { page, language } = params;
     return fetch(
         `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}&page=${page}`
     ).then((response) => {
@@ -135,7 +141,8 @@ export const getPeople = () => {
         });
 };
 
-export const getPeoplePaginated = ({page, language}) => {
+export const getPeoplePaginated = (params: GetMoviesPaginatedParams) => {
+    const { page, language } = params;
     return fetch(
         `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}&page=${page}`
     ).then((response) => {
@@ -203,7 +210,8 @@ export const getPopularMovies = () => {
         });
 };
 
-export const getPopularMoviesPaginated = ({page, language}) => {
+export const getPopularMoviesPaginated = (params: GetMoviesPaginatedParams) => {
+    const { page, language } = params;
     return fetch(
         `https://api.themoviedb.org/3/trending/movie/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {
@@ -229,31 +237,15 @@ export const getTrendingTV = () => {
         });
 };
 
-export const getTrendingTVSecond = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/trending/tv/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-    ).then((response) => {
-        if (!response.ok)
-            throw new Error(`Unable to fetch TV series. Response status: ${response.status}`);
-        return response.json();
-    })
-        .then((data) => {
-            return {
-                ...data,
-                results: data.results.map((tvShow: any) => ({
-                    ...tvShow,
-                    title: tvShow.name,
-                    release_date: tvShow.first_air_date,
-                    name: undefined
-                }))
-            };
-        })
-        .catch((error) => {
-            throw error;
-        });
-};
 
-export const getTrendingTVSecondPaginated = ({page, language}) => {
+
+interface TVShow {
+    name: string;
+    first_air_date: string;
+    [key: string]: unknown;
+}
+export const getTrendingTVSecondPaginated = (params: GetMoviesPaginatedParams) => {
+    const { page, language } = params;
     return fetch(
         `https://api.themoviedb.org/3/trending/tv/day?api_key=${import.meta.env.VITE_TMDB_KEY}&language=${language}&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {
@@ -264,7 +256,7 @@ export const getTrendingTVSecondPaginated = ({page, language}) => {
         .then((data) => {
             return {
                 ...data,
-                results: data.results.map((tvShow: any) => ({
+                results: data.results.map((tvShow: TVShow) => ({
                     ...tvShow,
                     title: tvShow.name,
                     release_date: tvShow.first_air_date,

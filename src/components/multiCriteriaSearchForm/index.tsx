@@ -1,4 +1,4 @@
-import React, { useContext, useState, ChangeEvent } from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -29,7 +29,7 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
         }
     };
 
-    const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
+    const { data } = useQuery<GenreData, Error>("genres", getGenres);
     const genres = data?.genres || [];
 
     const {
@@ -39,9 +39,7 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
         reset,
     } = useForm<BaseMultiSearchMovieProps>(defaultValues);
 
-    const [isInvalidInput, setIsInvalidInput] = useState(false);
     const [moviesSearch, setMoviesSearch] = useState([]);
-    const [moviesSearchJson, setMoviesSearchJson] = useState("");
     const onSubmit: SubmitHandler<BaseMultiSearchMovieProps> = async (movie) => {
         try {
             const moviesSearch = await getMovieSearch(
@@ -54,7 +52,6 @@ const multiCriteriaSearchForm: React.FC<BaseMovieListProps> = () => {
                 movie.with_genres,
             );
             setMoviesSearch(moviesSearch.results || []);
-            setMoviesSearchJson(JSON.stringify(moviesSearch.results, null, 2));
             console.log(moviesSearch.results);
             console.log(moviesSearch);
         } catch (error) {

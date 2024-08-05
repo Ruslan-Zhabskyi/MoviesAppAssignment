@@ -1,4 +1,4 @@
-import React, { useContext, useState, ChangeEvent } from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -29,7 +29,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         }
     };
 
-    const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
+    const { data } = useQuery<GenreData, Error>("genres", getGenres);
     const genres = data?.genres || [];
 
     const {

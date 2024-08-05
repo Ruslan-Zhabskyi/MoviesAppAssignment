@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from "react";  // useState/useEffect redundant
-import { FilterOption, GenreData } from "../../types/interfaces"; //include GenreData interface
+import React, { ChangeEvent } from "react";
+import { FilterOption, GenreData } from "../../types/interfaces";
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -29,7 +29,7 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
-    onUserInput: (f: FilterOption, s: string)  => void; // Add this line
+    onUserInput: (f: FilterOption, s: string)  => void;
     titleFilter: string;
     genreFilter: string;
 }
