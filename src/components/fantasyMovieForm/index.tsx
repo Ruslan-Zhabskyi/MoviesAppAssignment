@@ -93,24 +93,45 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${fantasy.title}" and description "${fantasy.overview}". Explain it like for 4 year olds`
                 }
             ],
-
         };
+
         llamaAPI.run(apiRequestJson)
             .then(response => {
                 setApiResponse(response);
                 fantasy.id = uuidv4();
                 const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
-                const newTitle = functionCallArguments.title;
                 const newOverview = functionCallArguments.overview;
-                context.addFantasyMovie({...fantasy, title: newTitle, overview: newOverview});
+                context.addFantasyMovie({...fantasy, overview: newOverview});
                 setOpen(true);
             })
             .catch(error => {
                 setError(error.message);
             });
-    }
+    };
 
-
+    const [movieData, setMovieData] = useState(null);
+    const title = "Bad Guys";
+    const apiRequestJson = {
+        'model': 'llama-70b-chat',
+        'max_token': 500,
+        'temperature': 0.9,
+        'messages': [
+            {
+                'role': 'user',
+                'content': `Create a fantasy movie title and a description based on the user-provided title "${title}".`
+            }
+        ]
+    };
+    useEffect(() => {
+        llamaAPI.run(apiRequestJson)
+            .then(response => {
+                // Assuming the response contains the generated content
+                setMovieData(response.choices[0].message.content);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    }, []);
 
     return (
         <Box component="div" sx={styles.root}>
@@ -331,7 +352,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                         variant="contained"
                         color="secondary"
                         sx={styles.submit}
-                        onClick={() => handleSubmit(onSubmitLlama)()}
+                        onClick={() => handleSubmit(onSubmitLlama)}
                     >
                         Submit Kids Version
                     </Button>
@@ -372,6 +393,14 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                 )}
             </Box>
             <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
+            {error && <p>Error: {error}</p>}
+
+            {movieData ? (
+                <p>{movieData}</p>
+            ) : (
+                <p>{error || "Generating movie idea..."}</p>
+            )}
+
         </Box>
 );
 };
