@@ -189,6 +189,7 @@ export interface BaseMultiSearchMovieProps {
 
 export interface AuthContextInterface {
     token: string | null;
+    session: string | null;
     authenticate: ((username: string, password: string) => void);
     signout: () => void;
 }

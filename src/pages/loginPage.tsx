@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
+import Auth from "../components/userAuth";
+import Account from "../components/userAccount";
 
 const LoginPage = () => {
     const authContext = useContext(AuthContext);
@@ -14,7 +16,7 @@ const LoginPage = () => {
         <>
             <h2>Login page</h2>
             <p>You must log in to view the protected pages </p>
-            {/* Login web form  */}
+            <Auth/>
             <button onClick={login}>Submit</button>
         </>
     )

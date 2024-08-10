@@ -29,7 +29,7 @@ const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const SiteHeader: React.FC = () => {
 
 
-    const { token, signout } = useContext(AuthContext) || {};
+    const { session, signout } = useContext(AuthContext) || {};
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const open = Boolean(anchorEl);
@@ -124,7 +124,7 @@ const SiteHeader: React.FC = () => {
                                 </Button>
                             ))}
 
-                            {token ? (
+                            {session ? (
                                 <Button color="inherit" onClick={() => signout()}>
                                     <CancelIcon/> Logout
                                 </Button>

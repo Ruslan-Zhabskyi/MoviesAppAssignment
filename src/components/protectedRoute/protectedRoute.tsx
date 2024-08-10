@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext.tsx";
 
 const ProtectedRoute:React.FC<React.PropsWithChildren> = (props) => {
     const authContext = useContext(AuthContext);
-    const { token } = authContext || {};
+    const { session } = authContext || {};
     const location = useLocation();
-    if (!token) {
+
+    if (!session) {
         return <Navigate to={"/login"} replace state={{ intent: location }} />;
     }
 
