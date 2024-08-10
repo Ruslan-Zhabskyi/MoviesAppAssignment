@@ -70,22 +70,22 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             'functions': [
                 {
                     "name": "Fantasy",
-        "description": "Creating fantasy movie.",
-        "parameters": {
-            "type": "object",
-                "properties": {
-                "title": {"title": "Title", "description": "Movie's title", "type": "string"},
-                "overview": {
-                    "title": "Overview",
-                        "description": "Movie's overview",
-                        "type": "string",
-                },
-            },
-            "required": ["title", "overview"]
-        }
-    }
-    ],
-        'function_call': {'name': 'Fantasy'},
+                    "description": "Creating fantasy movie.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+                            "overview": {
+                                "title": "Overview",
+                                "description": "Movie's overview",
+                                "type": "string",
+                            },
+                        },
+                        "required": ["title", "overview"]
+                    }
+                }
+            ],
+            'function_call': {'name': 'Fantasy'},
 
             'messages': [
                 {
@@ -108,6 +108,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             .catch(error => {
                 setError(error.message);
             });
+    }
 
 
 
@@ -371,7 +372,6 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                 )}
             </Box>
             <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
-            {error && <p>Error: {error}</p>}
         </Box>
 );
 };
