@@ -1,5 +1,4 @@
 import React, {useState, createContext, useEffect} from "react";
-import fakeAuth from "../fakeAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContextInterface } from "../types/interfaces";
 import { supabase } from "../supabaseClient.js";
@@ -26,6 +25,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
     // const [token, setToken] = useState<string|null>(null);
     const location = useLocation();
     const navigate = useNavigate();
+    const origin = location.state?.intent?.pathname || "/";
 
     // const authenticate = async (username: string, password: string) => {
     //     const token = await fakeAuth(username, password);
@@ -45,6 +45,7 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
             value={{
                 session,
                 signout,
+                origin,
             }}
         >
             {props.children}

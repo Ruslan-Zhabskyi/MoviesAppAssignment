@@ -192,4 +192,5 @@ export interface AuthContextInterface {
     session: string | null;
     authenticate: ((username: string, password: string) => void);
     signout: () => void;
+    origin: string | null;
 }
