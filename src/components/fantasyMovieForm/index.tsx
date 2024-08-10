@@ -61,53 +61,79 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         console.log(fantasy);
     };
 
+    // const onSubmitLlama: SubmitHandler<BaseFantasyMovieProps> = (fantasy) => {
+    //     const apiRequestJson = {
+    //         'model': 'llama-70b-chat',
+    //         'max_token': 500,
+    //         'temperature': 0.9,
+    //
+    //         'functions': [
+    //             {
+    //                 "name": "Fantasy",
+    //                 "description": "Creating fantasy movie.",
+    //                 "parameters": {
+    //                     "type": "object",
+    //                     "properties": {
+    //                         "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+    //                         "overview": {
+    //                             "title": "Overview",
+    //                             "description": "Movie's overview",
+    //                             "type": "string",
+    //                         },
+    //                     },
+    //                     "required": ["title", "overview"]
+    //                 }
+    //             }
+    //         ],
+    //         'function_call': {'name': 'Fantasy'},
+    //
+    //         'messages': [
+    //             {
+    //                 'role': 'user',
+    //                 'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${fantasy.title}" and description "${fantasy.overview}". Explain it like for 4 year olds`
+    //             }
+    //         ],
+    //     };
+    //
+    //     llamaAPI.run(apiRequestJson)
+    //         .then(response => {
+    //             setApiResponse(response);
+    //             fantasy.id = uuidv4();
+    //             const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
+    //             const newOverview = functionCallArguments.overview;
+    //             context.addFantasyMovie({...fantasy, overview: newOverview});
+    //             setOpen(true);
+    //         })
+    //         .catch(error => {
+    //             setError(error.message);
+    //         });
+    // };
+
     const onSubmitLlama: SubmitHandler<BaseFantasyMovieProps> = (fantasy) => {
         const apiRequestJson = {
             'model': 'llama-70b-chat',
             'max_token': 500,
             'temperature': 0.9,
-
-            'functions': [
-                {
-                    "name": "Fantasy",
-                    "description": "Creating fantasy movie.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "title": {"title": "Title", "description": "Movie's title", "type": "string"},
-                            "overview": {
-                                "title": "Overview",
-                                "description": "Movie's overview",
-                                "type": "string",
-                            },
-                        },
-                        "required": ["title", "overview"]
-                    }
-                }
-            ],
-            'function_call': {'name': 'Fantasy'},
-
             'messages': [
                 {
                     'role': 'user',
                     'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${fantasy.title}" and description "${fantasy.overview}". Explain it like for 4 year olds`
                 }
-            ],
+            ]
         };
 
         llamaAPI.run(apiRequestJson)
             .then(response => {
                 setApiResponse(response);
                 fantasy.id = uuidv4();
-                const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
-                const newOverview = functionCallArguments.overview;
-                context.addFantasyMovie({...fantasy, overview: newOverview});
+                context.addFantasyMovie({...fantasy, overview: response.choices[0].message.content});
                 setOpen(true);
             })
             .catch(error => {
                 setError(error.message);
             });
     };
+
 
     return (
         <Box component="div" sx={styles.root}>
