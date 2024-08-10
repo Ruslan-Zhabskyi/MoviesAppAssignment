@@ -19,7 +19,7 @@ const FantasyMoviePage: React.FC = () => {
         'messages': [
             {
                 'role': 'user',
-                'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${title}" and description "${description}".`
+                'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${title}" and description "${description}". Explain it like for 4 year olds`
             }
         ]
     };
