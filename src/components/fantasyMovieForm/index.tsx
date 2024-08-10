@@ -114,6 +114,27 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             'model': 'llama-70b-chat',
             'max_token': 500,
             'temperature': 0.9,
+
+                    'functions': [
+                        {
+                            "name": "Fantasy",
+                            "description": "Creating fantasy movie.",
+                            "parameters": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+                                    "overview": {
+                                        "title": "Overview",
+                                        "description": "Movie's overview",
+                                        "type": "string",
+                                    },
+                                },
+                                "required": ["title", "overview"]
+                            }
+                        }
+                    ],
+                    'function_call': {'name': 'Fantasy'},
+
             'messages': [
                 {
                     'role': 'user',
@@ -126,7 +147,13 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             .then(response => {
                 setApiResponse(response);
                 fantasy.id = uuidv4();
+
+               //  const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
+               // const newOverview = functionCallArguments.overview;
+
                 context.addFantasyMovie({...fantasy, overview: response.choices[0].message.content});
+
+
                 setOpen(true);
             })
             .catch(error => {
