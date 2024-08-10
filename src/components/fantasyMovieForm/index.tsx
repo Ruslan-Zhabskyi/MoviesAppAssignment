@@ -32,6 +32,8 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         }
     };
 
+    const [apiResponse, setApiResponse] = useState(null);
+    const [error, setError] = useState(null);
     const { data } = useQuery<GenreData, Error>("genres", getGenres);
     const genres = data?.genres || [];
 
@@ -59,32 +61,55 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         console.log(fantasy);
     };
 
-    const [apiResponse, setApiResponse] = useState(null);
-    const [error, setError] = useState(null);
-    const title = "Bad Guys"
-    const description = "In a world where mythical creatures roam free, a group of notorious villains known as the Shadow Syndicate are determined to take over the realm of Tenaria. Led by the ruthless sorceress, Lyra Blackwood, the Bad Guys must navigate treacherous landscapes, forge uneasy alliances, and use their cunning skills to outwit powerfu"
-    const apiRequestJson = {
-        'model': 'llama-70b-chat',
-        'max_token': 500,
-        'temperature': 0.9,
+    const onSubmitLlama: SubmitHandler<BaseFantasyMovieProps> = (fantasy) => {
+        const apiRequestJson = {
+            'model': 'llama-70b-chat',
+            'max_token': 500,
+            'temperature': 0.9,
 
-        'messages': [
-            {
-                'role': 'user',
-                'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${title}" and description "${description}". Explain it like for 4 year olds`
-            }
-        ]
-    };
+            'functions': [
+                {
+                    "name": "Fantasy",
+        "description": "Creating fantasy movie.",
+        "parameters": {
+            "type": "object",
+                "properties": {
+                "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+                "overview": {
+                    "title": "Overview",
+                        "description": "Movie's overview",
+                        "type": "string",
+                },
+            },
+            "required": ["title", "overview"]
+        }
+    }
+    ],
+        'function_call': {'name': 'Fantasy'},
 
-    useEffect(() => {
+            'messages': [
+                {
+                    'role': 'user',
+                    'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${fantasy.title}" and description "${fantasy.overview}". Explain it like for 4 year olds`
+                }
+            ],
+
+        };
         llamaAPI.run(apiRequestJson)
             .then(response => {
                 setApiResponse(response);
+                fantasy.id = uuidv4();
+                const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
+                const newTitle = functionCallArguments.title;
+                const newOverview = functionCallArguments.overview;
+                context.addFantasyMovie({...fantasy, title: newTitle, overview: newOverview});
+                setOpen(true);
             })
             .catch(error => {
                 setError(error.message);
             });
-    }, []);
+
+
 
     return (
         <Box component="div" sx={styles.root}>
@@ -301,6 +326,15 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                         Submit
                     </Button>
                     <Button
+                        type="button"
+                        variant="contained"
+                        color="secondary"
+                        sx={styles.submit}
+                        onClick={() => handleSubmit(onSubmitLlama)()}
+                    >
+                        Submit Kids Version
+                    </Button>
+                    <Button
                         type="reset"
                         variant="contained"
                         color="secondary"
@@ -328,20 +362,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                             <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
                             <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
                             <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
-                            <Button
-                                type="genAI"
-                                variant="contained"
-                                color="secondary"
-                                sx={styles.submit}
-                                onClick={() => {
-                                    reset({
-                                        "title": "",
-                                        "overview": "",
-                                    });
-                                }}
-                            >
-                                Generate Kids Version
-                            </Button>
+
                         </Box>
 
                     ))
