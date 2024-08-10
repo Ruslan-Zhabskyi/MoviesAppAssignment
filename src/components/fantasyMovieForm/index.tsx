@@ -297,7 +297,22 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                             <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
                             <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
                             <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
+                            <Button
+                                type="genAI"
+                                variant="contained"
+                                color="secondary"
+                                sx={styles.submit}
+                                onClick={() => {
+                                    reset({
+                                        "title": "",
+                                        "overview": "",
+                                    });
+                                }}
+                            >
+                                Generate Kids Version
+                            </Button>
                         </Box>
+
                     ))
                 ) : (
                     <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>

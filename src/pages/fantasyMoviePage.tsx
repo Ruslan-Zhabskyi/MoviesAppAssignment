@@ -3,7 +3,7 @@ import PageTemplate from "../components/templateFantasyMoviePage";
 import FantasyMovieForm from "../components/fantasyMovieForm";
 import LlamaAI from 'llamaai';
 
-const apiToken = 'LL-Rx1a3iuvYUD27HNR5fx9YO0kEUxTL0RiAMWdmpPBxal4aePm5qfhALzlt0DOprOk';
+const apiToken = import.meta.env.VITE_API_TOKEN;
 const llamaAPI = new LlamaAI(apiToken);
 
 const FantasyMoviePage: React.FC = () => {
