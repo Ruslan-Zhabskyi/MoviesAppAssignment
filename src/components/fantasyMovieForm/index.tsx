@@ -148,10 +148,10 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                 setApiResponse(response);
                 fantasy.id = uuidv4();
 
-               //  const functionCallArguments = JSON.parse(response.choices[0].message.function_call.arguments);
-               // const newOverview = functionCallArguments.overview;
+                const newTitle = response.choices[0].message.function_call.arguments.title;
+                const newOverview = response.choices[0].message.function_call.arguments.overview;
 
-                context.addFantasyMovie({...fantasy, overview: response.choices[0].message.content});
+                context.addFantasyMovie({...fantasy, overview: newOverview, title: newTitle});
 
 
                 setOpen(true);
