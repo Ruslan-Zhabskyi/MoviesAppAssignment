@@ -32,6 +32,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         }
     };
 
+    const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
     const { data } = useQuery<GenreData, Error>("genres", getGenres);
     const genres = data?.genres || [];
@@ -96,7 +97,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
 
         llamaAPI.run(apiRequestJson)
             .then(response => {
-
+                setApiResponse(response);
                 fantasy.id = uuidv4();
 
                 const newTitle = response.choices[0].message.function_call.arguments.title;
