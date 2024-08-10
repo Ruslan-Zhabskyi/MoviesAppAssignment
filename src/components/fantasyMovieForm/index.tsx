@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -15,7 +15,10 @@ import {useQuery} from "react-query";
 import {getGenres} from "../../api/tmdb-api.ts";
 import MenuItem from "@mui/material/MenuItem";
 import { v4 as uuidv4 } from 'uuid';
+import LlamaAI from 'llamaai';
 
+const apiToken = import.meta.env.VITE_API_TOKEN;
+const llamaAPI = new LlamaAI(apiToken);
 
 const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     const defaultValues = {
@@ -55,6 +58,34 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         setOpen(true);
         console.log(fantasy);
     };
+
+    const [apiResponse, setApiResponse] = useState(null);
+    const [error, setError] = useState(null);
+    const title = "Bad Guys"
+    const description = "In a world where mythical creatures roam free, a group of notorious villains known as the Shadow Syndicate are determined to take over the realm of Tenaria. Led by the ruthless sorceress, Lyra Blackwood, the Bad Guys must navigate treacherous landscapes, forge uneasy alliances, and use their cunning skills to outwit powerfu"
+    const apiRequestJson = {
+        'model': 'llama-70b-chat',
+        'max_token': 500,
+        'temperature': 0.9,
+
+        'messages': [
+            {
+                'role': 'user',
+                'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${title}" and description "${description}". Explain it like for 4 year olds`
+            }
+        ]
+    };
+
+    useEffect(() => {
+        llamaAPI.run(apiRequestJson)
+            .then(response => {
+                setApiResponse(response);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    }, []);
+
     return (
         <Box component="div" sx={styles.root}>
             <Typography component="h2" variant="h3">
@@ -318,7 +349,8 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>
                 )}
             </Box>
-
+            <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
+            {error && <p>Error: {error}</p>}
         </Box>
 );
 };
