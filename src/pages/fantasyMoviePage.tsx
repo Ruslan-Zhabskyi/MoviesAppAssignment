@@ -10,34 +10,20 @@ const FantasyMoviePage: React.FC = () => {
     const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
 
-    const api_request_json = {
-        'model': 'llama-13b-chat',
-        'functions': [
+    const apiRequestJson = {
+        'model': 'llama-70b-chat',
+        'max_token': 500,
+        'temperature': 0.9,
+        'messages': [
             {
-                "name": "Person",
-    "description": "Identifying information about a person.",
-    "parameters": {
-        "type": "object",
-            "properties": {
-            "name": {"title": "Name", "description": "The person's name", "type": "string"},
-            "age": {"title": "Age", "description": "The person's age", "type": "integer"},
-            "fav_food": {
-                "title": "Fav Food",
-                    "description": "The person's favorite food",
-                    "type": "string",
-            },
-        },
-        "required": ["name", "age"]
-    }
-}
-],
-    'function_call': {'name': 'Person'},
-    'messages': [
-        {'role': 'user', 'content': "John is 23 years old. He likes to eat pizza."}],
-};
+                'role': 'user',
+                'content': "Create a fantasy movie title and a brief description."
+            }
+        ]
+    };
 
     useEffect(() => {
-        llamaAPI.run(api_request_json)
+        llamaAPI.run(apiRequestJson)
             .then(response => {
                 setApiResponse(response);
             })
