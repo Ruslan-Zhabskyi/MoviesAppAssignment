@@ -9,15 +9,16 @@ const llamaAPI = new LlamaAI(apiToken);
 const FantasyMoviePage: React.FC = () => {
     const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
-
+    const title = "Bad Guys"
     const apiRequestJson = {
         'model': 'llama-70b-chat',
         'max_token': 500,
         'temperature': 0.9,
+
         'messages': [
             {
                 'role': 'user',
-                'content': "Create a fantasy movie title and a brief description."
+                'content': `Create a fantasy movie title and a description based on the user-provided title "${title}".`
             }
         ]
     };
