@@ -109,30 +109,6 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             });
     };
 
-    const [movieData, setMovieData] = useState(null);
-    const title = "Bad Guys";
-    const apiRequestJson = {
-        'model': 'llama-70b-chat',
-        'max_token': 500,
-        'temperature': 0.9,
-        'messages': [
-            {
-                'role': 'user',
-                'content': `Create a fantasy movie title and a description based on the user-provided title "${title}".`
-            }
-        ]
-    };
-    useEffect(() => {
-        llamaAPI.run(apiRequestJson)
-            .then(response => {
-                // Assuming the response contains the generated content
-                setMovieData(response.choices[0].message.content);
-            })
-            .catch(error => {
-                setError(error.message);
-            });
-    }, []);
-
     return (
         <Box component="div" sx={styles.root}>
             <Typography component="h2" variant="h3">
@@ -352,9 +328,9 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                         variant="contained"
                         color="secondary"
                         sx={styles.submit}
-                        onClick={() => handleSubmit(onSubmitLlama)}
+                        onClick={() => handleSubmit(onSubmitLlama)()}
                     >
-                        Submit Kids Version
+                        Generate Kids Version
                     </Button>
                     <Button
                         type="reset"
@@ -394,12 +370,6 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             </Box>
             <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
             {error && <p>Error: {error}</p>}
-
-            {movieData ? (
-                <p>{movieData}</p>
-            ) : (
-                <p>{error || "Generating movie idea..."}</p>
-            )}
 
         </Box>
 );
