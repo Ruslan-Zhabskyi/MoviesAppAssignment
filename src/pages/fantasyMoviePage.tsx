@@ -10,6 +10,7 @@ const FantasyMoviePage: React.FC = () => {
     const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
     const title = "Bad Guys"
+    const description = "In a world where mythical creatures roam free, a group of notorious villains known as the Shadow Syndicate are determined to take over the realm of Tenaria. Led by the ruthless sorceress, Lyra Blackwood, the Bad Guys must navigate treacherous landscapes, forge uneasy alliances, and use their cunning skills to outwit powerfu"
     const apiRequestJson = {
         'model': 'llama-70b-chat',
         'max_token': 500,
@@ -18,7 +19,7 @@ const FantasyMoviePage: React.FC = () => {
         'messages': [
             {
                 'role': 'user',
-                'content': `Create a fantasy movie title and a description based on the user-provided title "${title}".`
+                'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${title}" and description "${description}".`
             }
         ]
     };
