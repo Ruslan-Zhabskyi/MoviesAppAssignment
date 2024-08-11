@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { v4 as uuidv4 } from 'uuid';
 import LlamaAI from 'llamaai';
 import LinearProgress from '@mui/material/LinearProgress';
+import BootstrapDialog from "../dialogButton";
 
 const apiToken = import.meta.env.VITE_API_TOKEN;
 const llamaAPI = new LlamaAI(apiToken);
@@ -24,11 +25,11 @@ const llamaAPI = new LlamaAI(apiToken);
 const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
     const defaultValues = {
         defaultValues: {
-            title: "",
-            overview: "",
+            title: "Scrary Death",
+            overview: "Scrary Death on the cemetry. Multiple people died. Alliens came and ate all trees",
             release_date: "",
-            runtime: "",
-            production_company: "",
+            runtime: "96",
+            production_company: "AAA aa",
             genre: ""
         }
     };
@@ -361,13 +362,15 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                 {context.myFantasy.length > 0 ? (
                     context.myFantasy.map((fantasy, id) => (
                         <Box key={id} sx={{ marginTop: 2, padding: 2, border: '1px solid gray' }}>
+                            <>
                             <Typography variant="h6">Title: {fantasy.title}</Typography>
                             <Typography variant="body1">Overview: {fantasy.overview}</Typography>
                             <Typography variant="body1">Release Date: {fantasy.release_date}</Typography>
                             <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
                             <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
                             <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
-
+                            <BootstrapDialog {...fantasy}/>
+                            </>
                         </Box>
 
                     ))
