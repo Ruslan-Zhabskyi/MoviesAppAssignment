@@ -18,7 +18,6 @@ import { v4 as uuidv4 } from 'uuid';
 import LlamaAI from 'llamaai';
 import LinearProgress from '@mui/material/LinearProgress';
 import BootstrapDialog from "../dialogButton";
-import ImageUpload from "../imageUpload/index.jsx";
 
 const apiToken = import.meta.env.VITE_API_TOKEN;
 const llamaAPI = new LlamaAI(apiToken);
@@ -71,25 +70,25 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             'max_token': 500,
             'temperature': 0.9,
 
-                    'functions': [
-                        {
-                            "name": "Fantasy",
-                            "description": "Creating fantasy movie.",
-                            "parameters": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {"title": "Title", "description": "Movie's title", "type": "string"},
-                                    "overview": {
-                                        "title": "Overview",
-                                        "description": "Movie's overview",
-                                        "type": "string",
-                                    },
-                                },
-                                "required": ["title", "overview"]
-                            }
-                        }
-                    ],
-                    'function_call': {'name': 'Fantasy'},
+            'functions': [
+                {
+                    "name": "Fantasy",
+                    "description": "Creating fantasy movie.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+                            "overview": {
+                                "title": "Overview",
+                                "description": "Movie's overview",
+                                "type": "string",
+                            },
+                        },
+                        "required": ["title", "overview"]
+                    }
+                }
+            ],
+            'function_call': {'name': 'Fantasy'},
 
             'messages': [
                 {
@@ -117,14 +116,6 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             });
     };
 
-    const galleryImageList = [
-        "https://raw.githubusercontent.com/dxyang/StyleTransfer/master/style_imgs/mosaic.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-        "https://raw.githubusercontent.com/ShafeenTejani/fast-style-transfer/master/examples/dora-maar-picasso.jpg",
-        "https://pbs.twimg.com/profile_images/925531519858257920/IyYLHp-u_400x400.jpg",
-        "https://raw.githubusercontent.com/ShafeenTejani/fast-style-transfer/master/examples/dog.jpg",
-        "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg"
-    ];
     return (
         <Box component="div" sx={styles.root}>
             <Typography component="h2" variant="h3">
@@ -371,31 +362,31 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
                     context.myFantasy.map((fantasy, id) => (
                         <Box key={id} sx={{ marginTop: 2, padding: 2, border: '1px solid gray' }}>
                             <>
-                            <Typography variant="h6">Title: {fantasy.title}</Typography>
-                            <Typography variant="body1">Overview: {fantasy.overview}</Typography>
-                            <Typography variant="body1">Release Date: {fantasy.release_date}</Typography>
-                            <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
-                            <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
-                            <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
-                            <BootstrapDialog {...fantasy}/>
+                                <Typography variant="h6">Title: {fantasy.title}</Typography>
+                                <Typography variant="body1">Overview: {fantasy.overview}</Typography>
+                                <Typography variant="body1">Release Date: {fantasy.release_date}</Typography>
+                                <Typography variant="body1">Runtime: {fantasy.runtime} minutes</Typography>
+                                <Typography variant="body1">Production Company: {fantasy.production_company}</Typography>
+                                <Typography variant="body1">Genres: {fantasy.genre.map(id => genres.find(genre => genre.id === id)?.name).join(', ')}</Typography>
+                                <BootstrapDialog {...fantasy}/>
                             </>
                         </Box>
 
                     ))
                 ) : (
                     <>
-                    <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>
-                    <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
-                        <LinearProgress color="secondary" />
-                        <LinearProgress color="success" />
-                        <LinearProgress color="inherit" />
-                    </Stack>
+                        <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>
+                        <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+                            <LinearProgress color="secondary" />
+                            <LinearProgress color="success" />
+                            <LinearProgress color="inherit" />
+                        </Stack>
                     </>
                 )}
             </Box>
 
         </Box>
-);
+    );
 };
 
 export default FantasyMovieForm;

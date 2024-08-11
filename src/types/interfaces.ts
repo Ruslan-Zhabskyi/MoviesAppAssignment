@@ -174,11 +174,6 @@ export interface BaseFantasyMovieProps {
     runtime: string;
     genre: string[];
     production_company: string[];
-    cast: {
-        full_name: string;
-        role: string;
-        description: string;
-    }[];
 }
 
 export interface BaseMultiSearchMovieProps {
