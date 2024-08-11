@@ -112,10 +112,17 @@ const CustomizedDialogs: React.FC<BaseFantasyMovieProps> = (fantasy) => {
                 </IconButton>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        <b>New Title:</b> {newTitle}
+                        <b>Original Title:</b> {fantasy.title}
                     </Typography>
                     <Typography gutterBottom>
-                        <b>New Overview:</b> {newOverview}
+                        <b>Original Overview:</b> {fantasy.overview}
+                    </Typography>
+
+                    <Typography gutterBottom>
+                        <b>Quentin Tarantino Title:</b> {newTitle}
+                    </Typography>
+                    <Typography gutterBottom>
+                        <b>Quentin Tarantino Overview:</b> {newOverview}
                     </Typography>
                 </DialogContent>
                 <DialogActions>
