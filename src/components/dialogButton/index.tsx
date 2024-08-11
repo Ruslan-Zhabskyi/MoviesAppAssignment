@@ -9,6 +9,11 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import {BaseFantasyMovieProps} from "../../types/interfaces.ts";
+import LlamaAI from 'llamaai';
+import {useState} from "react";
+
+const apiToken = import.meta.env.VITE_API_TOKEN;
+const llamaAPI = new LlamaAI(apiToken);
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -22,9 +27,59 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const CustomizedDialogs: React.FC<BaseFantasyMovieProps> = (fantasy) => {
 // export default function CustomizedDialogs() {
     const [open, setOpen] = React.useState(false);
+    const [apiResponse, setApiResponse] = useState(null);
+    const [error, setError] = useState(null);
+    const [newTitle, setNewTitle] = useState('');
+    const [newOverview, setNewOverview] = useState('');
 
     const handleClickOpen = () => {
-        setOpen(true);
+
+        const apiRequestJson = {
+            'model': 'llama-70b-chat',
+            'max_token': 500,
+            'temperature': 0.9,
+
+            'functions': [
+                {
+                    "name": "Fantasy",
+                    "description": "Creating fantasy movie.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "title": {"title": "Title", "description": "Movie's title", "type": "string"},
+                            "overview": {
+                                "title": "Overview",
+                                "description": "Movie's overview",
+                                "type": "string",
+                            },
+                        },
+                        "required": ["title", "overview"]
+                    }
+                }
+            ],
+            'function_call': {'name': 'Fantasy'},
+
+            'messages': [
+                {
+                    'role': 'user',
+                    'content': `Rephrase a fantasy movie title and a description based on the user-provided title "${fantasy.title}" and description "${fantasy.overview}" like Quentin Tarantino`
+                }
+            ]
+        };
+
+        llamaAPI.run(apiRequestJson)
+            .then(response => {
+                setApiResponse(response);
+                const newTitle = response.choices[0].message.function_call.arguments.title;
+                const newOverview = response.choices[0].message.function_call.arguments.overview;
+                setNewTitle(newTitle);
+                setNewOverview(newOverview);
+                setOpen(true);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+
     };
     const handleClose = () => {
         setOpen(false);
@@ -33,7 +88,7 @@ const CustomizedDialogs: React.FC<BaseFantasyMovieProps> = (fantasy) => {
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Open dialog
+                Quentin Tarantino Version
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
@@ -57,10 +112,10 @@ const CustomizedDialogs: React.FC<BaseFantasyMovieProps> = (fantasy) => {
                 </IconButton>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        <b>Title:</b> {fantasy.overview}
+                        <b>New Title:</b> {newTitle}
                     </Typography>
                     <Typography gutterBottom>
-                        <b>Overview:</b> {fantasy.overview}
+                        <b>New Overview:</b> {newOverview}
                     </Typography>
                 </DialogContent>
                 <DialogActions>
