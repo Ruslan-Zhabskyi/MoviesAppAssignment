@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Select, InputLabel, FormControl } from '@mui/material';
+import {Select, InputLabel, FormControl, Stack} from '@mui/material';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ import {getGenres} from "../../api/tmdb-api.ts";
 import MenuItem from "@mui/material/MenuItem";
 import { v4 as uuidv4 } from 'uuid';
 import LlamaAI from 'llamaai';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const apiToken = import.meta.env.VITE_API_TOKEN;
 const llamaAPI = new LlamaAI(apiToken);
@@ -32,6 +33,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
         }
     };
 //some changes
+
     const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
     const { data } = useQuery<GenreData, Error>("genres", getGenres);
@@ -370,7 +372,14 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
 
                     ))
                 ) : (
+                    <>
                     <Typography variant="h6" sx={{ marginTop: 2 }}>Submit your first Fantasy Movie</Typography>
+                    <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+                        <LinearProgress color="secondary" />
+                        <LinearProgress color="success" />
+                        <LinearProgress color="inherit" />
+                    </Stack>
+                    </>
                 )}
             </Box>
 
