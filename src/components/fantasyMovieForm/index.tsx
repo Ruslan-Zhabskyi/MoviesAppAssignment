@@ -31,7 +31,7 @@ const FantasyMovieForm: React.FC<BaseFantasyMovieProps> = () => {
             genre: ""
         }
     };
-
+//some changes
     const [apiResponse, setApiResponse] = useState(null);
     const [error, setError] = useState(null);
     const { data } = useQuery<GenreData, Error>("genres", getGenres);
