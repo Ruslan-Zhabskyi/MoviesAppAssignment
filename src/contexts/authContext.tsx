@@ -20,23 +20,13 @@ const AuthContextProvider:React.FC<React.PropsWithChildren> = (props) => {
         })
     }, [])
 
-    //3rd party Auth implementation
-
-    // const [token, setToken] = useState<string|null>(null);
     const location = useLocation();
     const navigate = useNavigate();
     const origin = location.state?.intent?.pathname || "/";
 
-    // const authenticate = async (username: string, password: string) => {
-    //     const token = await fakeAuth(username, password);
-        // setToken(token);
-    //     const origin = location.state?.intent?.pathname || "/";
-    //     navigate(origin);
-    // };
 
     const signout = () => {
         supabase.auth.signOut();
-        // setToken(null);
         navigate('/')
     };
 

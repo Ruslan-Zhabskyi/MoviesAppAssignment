@@ -11,7 +11,7 @@ This repository contains an implementation of the Movie Fans Web Application usi
 ### Features
 [ A bullet-point list of the __new features__ you added to the Movies Fan app (and any **modifications to existing features**) .]
 
-+ Feature 1
++ Implemented transation functionality: English-Ukrainian, Ukrainian-English 
 + Feature 2
 + Feature 3
 + etc
@@ -20,7 +20,7 @@ This repository contains an implementation of the Movie Fans Web Application usi
 ### Setup requirements.
 
 + sign up to supabase and create new project https://supabase.com/docs/guides/getting-started/tutorials/with-react
-+ sign up to LlamaAPI and generate API token
++ sign up to LlamaAPI and generate API token https://www.llama-api.com/
 + run:
   + npm install axios
   + npm install llamaai
@@ -29,7 +29,7 @@ This repository contains an implementation of the Movie Fans Web Application usi
   + VITE_TMDB_KEY= ...
   + VITE_SUPABASE_URL= ... 
   + VITE_SUPABASE_ANON_KEY= ... 
-  + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/}
+  + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/ }
 
 
 
@@ -61,16 +61,15 @@ Protected routes that require authentication:
 + Supabase Authentication by using magic link  
 + LlamaAPI to enhance the fantasy movie creation process: generates kids and Quentin Tarantino version
 + Pagination for data-listing pages such as Home, Upcoming, Trending, TV series, Popular Actors
-+ Implemented transation functionality: English-Ukrainian, Ukrainian-English 
 
 
 ### Independent learning
 
++ Third Party Authentication with supabase: [online resources](https://supabase.com/docs/guides/getting-started/tutorials/with-react)
+  +
 + Pagination: [online resources](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)
   + [tmdb-api.ts lines: 188-200](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/api/tmdb-api.ts)
   + [popularMoviesPage.tsx lines: 28-33](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/pages/popularMoviesPage.tsx)
-+ Third Party Authentication with supabase: [online resources](https://supabase.com/docs/guides/getting-started/tutorials/with-react)
-  +
 + LlamaAPI: [online resources](https://docs.llama-api.com/essentials/function)
 
 Itemize the technologies/techniques you researched independently and adopted in your project, 
