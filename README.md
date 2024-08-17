@@ -19,7 +19,19 @@ This repository contains an implementation of the Movie Fans Web Application usi
 
 ### Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
++ sign up to supabase and create new project https://supabase.com/docs/guides/getting-started/tutorials/with-react
++ sign up to LlamaAPI and generate API token
++ run:
++ + npm install llamaai
++ + npm install axios
++ + npm install @supabase/supabase-js
++ .env file must include:
++ + VITE_TMDB_KEY=
++ + VITE_SUPABASE_URL=
++ + VITE_SUPABASE_ANON_KEY=
++ + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/}
+
+
 
 ### API endpoints
 
