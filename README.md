@@ -9,19 +9,32 @@ __Video Demo:__ [ Edit YouTube](https://youtube.com)
 This repository contains an implementation of the Movie Fans Web Application using the React library. 
 
 ### Features
-[ A bullet-point list of the __new features__ you added to the Movies Fan app (and any **modifications to existing features**) .]
 
-+ Implemented transation functionality: English-Ukrainian, Ukrainian-English 
-+ Feature 2
-+ Feature 3
-+ etc
-+ etc
++ New views/pages (3+): 
+  + List view: TV Series, Watch Later, Popular Actors
+  + Detail view: Actor Details
++ Parameterised URL for Actor Details page
++ Hyperlinks to Actors online social media pages such as YouTube, X, Instagram and Facebook
++ Added additional data entry types: Actor/People, TV Series, Actor/Person Social Media, Actor/Person Image, Fantasy Movie, Multi Search
++ Server state Caching
++ Filtering:
+  + TV Series Page: Name, Genre
+  + Actor Page: Name, Gender, Popularity
++ Pagination for data-listing pages such as Home, Upcoming, Trending, TV series, Popular Actors
++ Private and Public routes
++ Favourite Actors
++ Multi-criteria Search
++ Implemented transation functionality: English-Ukrainian, Ukrainian-English
++ Storybook support
++ Advanced My fantasy movie. Added GenAI to generate kids and Quentin Tarantino version of the user fantasy movie
++ 3rd Party Authentication - Supabase
+
 
 ### Setup requirements.
 
-+ sign up to supabase and create new project https://supabase.com/docs/guides/getting-started/tutorials/with-react
-+ sign up to LlamaAPI and generate API token https://www.llama-api.com/
-+ run:
++ Sign up to supabase and follow steps described in "Project setup" section https://supabase.com/docs/guides/getting-started/tutorials/with-react
++ Sign up to LlamaAPI and generate API token https://www.llama-api.com/
++ Run:
   + npm install axios
   + npm install llamaai
   + npm install @supabase/supabase-js
@@ -30,7 +43,6 @@ This repository contains an implementation of the Movie Fans Web Application usi
   + VITE_SUPABASE_URL= ... 
   + VITE_SUPABASE_ANON_KEY= ... 
   + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/ }
-
 
 
 ### API endpoints
@@ -49,7 +61,6 @@ Public routes:
 + /login - login page
 
 Protected routes that require authentication:
-
 + /movies/upcoming/watchlater - displays watch later movies
 + /search - multi-criteria search page to look for movies
 + /fantasy - page where you can define or generate using GenAI your Fanstasy Movie
@@ -60,7 +71,6 @@ Protected routes that require authentication:
 
 + Supabase Authentication by using magic link  
 + LlamaAPI to enhance the fantasy movie creation process: generates kids and Quentin Tarantino version
-+ Pagination for data-listing pages such as Home, Upcoming, Trending, TV series, Popular Actors
 
 
 ### Independent learning
