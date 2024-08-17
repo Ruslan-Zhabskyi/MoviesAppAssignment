@@ -4,7 +4,7 @@
 
 __Name:__ Ruslan Zhabskyi
 
-__Video Demo:__ ..... URL of your YouTube video demonstration ....
+__Video Demo:__ [ Edit YouTube](https://youtube.com)
 
 This repository contains an implementation of the Movie Fans Web Application using the React library. 
 
@@ -22,47 +22,56 @@ This repository contains an implementation of the Movie Fans Web Application usi
 + sign up to supabase and create new project https://supabase.com/docs/guides/getting-started/tutorials/with-react
 + sign up to LlamaAPI and generate API token
 + run:
-+ + npm install llamaai
-+ + npm install axios
-+ + npm install @supabase/supabase-js
+  + npm install axios
+  + npm install llamaai
+  + npm install @supabase/supabase-js
 + .env file must include:
-+ + VITE_TMDB_KEY=
-+ + VITE_SUPABASE_URL=
-+ + VITE_SUPABASE_ANON_KEY=
-+ + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/}
+  + VITE_TMDB_KEY= ...
+  + VITE_SUPABASE_URL= ... 
+  + VITE_SUPABASE_ANON_KEY= ... 
+  + VITE_API_TOKEN= {this is LlamaAPI token: https://www.llama-api.com/}
 
 
 
 ### API endpoints
 
-[ List the __additional__ TMDB endpoints used, giving the description and pathname for each one.] 
++ Popular Actors - /popular/people
++ Actor Details - /popular/people/:id
++ Trending Tv Series - /tv/trending
 
-e.g.
-+ Discover list of movies - discover/movie
-+ Movie details - movie/:id
-+ Movie genres = /genre/movie/list
 
 ### Routing
 
-[ List the __new routes__ supported by your app and state the associated page.]
+Public routes:
++ /popular/people - displays popular actors
++ /popular/people/:id - displays selected actor information such as photos, overview, links to availible social media and popularity
++ /tv/trending - displays trending TV series
++ /login - login page
 
-+ /blogs - displays all published blogs.
-+ /blogs/:id - displays a particular blog.
-+ /blogs/:id/comments - detail view of a particular blog and its comments.
-+ etc.
+Protected routes that require authentication:
 
-[If relevant, state what aspects of your app are protected (i.e. require authentication) and what is public.]
++ /movies/upcoming/watchlater - displays watch later movies
++ /search - multi-criteria search page to look for movies
++ /fantasy - page where you can define or generate using GenAI your Fanstasy Movie
++ /people/favourite - displays actors marked as favourite
+
 
 ### Third Party Components/Integration
 
-[Describe the level of  integration/use or other API's or third party components]
++ Supabase Authentication by using magic link  
++ LlamaAPI to enhance the fantasy movie creation process: generates kids and Quentin Tarantino version
++ Pagination for data-listing pages such as Home, Upcoming, Trending, TV series, Popular Actors
++ Implemented transation functionality: English-Ukrainian, Ukrainian-English 
 
-+ React Components
-+ Third party/custom APIs
-+ Authentication
-+ etc...
 
-### Independent learning (If relevant)
+### Independent learning
+
++ Pagination: [online resources](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)
+  + [tmdb-api.ts lines: 188-200](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/api/tmdb-api.ts)
+  + [popularMoviesPage.tsx lines: 28-33](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/pages/popularMoviesPage.tsx)
++ Third Party Authentication with supabase: [online resources](https://supabase.com/docs/guides/getting-started/tutorials/with-react)
+  +
++ LlamaAPI: [online resources](https://docs.llama-api.com/essentials/function)
 
 Itemize the technologies/techniques you researched independently and adopted in your project, 
 i.e. aspects not covered in the lectures/labs. Include the source code filenames that illustrate these 
