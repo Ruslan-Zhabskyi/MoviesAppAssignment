@@ -65,13 +65,12 @@ Protected routes that require authentication:
 
 ### Independent learning
 
-+ Third Party Authentication with supabase: [online resources](https://supabase.com/docs/guides/getting-started/tutorials/with-react)
-  +
-+ Pagination: [online resources](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)
++ Third Party Authentication with supabase: [online resource reference](https://supabase.com/docs/guides/getting-started/tutorials/with-react)
+  + [authContext.tsx lines: 14-31](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/contexts/authContext.tsx)
+  + [userAuth/index.tsx](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/components/userAuth/index.tsx)
++ Pagination: [online resource reference](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)
   + [tmdb-api.ts lines: 188-200](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/api/tmdb-api.ts)
   + [popularMoviesPage.tsx lines: 28-33](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/pages/popularMoviesPage.tsx)
-+ LlamaAPI: [online resources](https://docs.llama-api.com/essentials/function)
-
-Itemize the technologies/techniques you researched independently and adopted in your project, 
-i.e. aspects not covered in the lectures/labs. Include the source code filenames that illustrate these 
-(we do not require code excerpts) and provide references to the online resources that helped you (articles/blogs).
++ LlamaAPI: [online resource reference](https://docs.llama-api.com/essentials/function)
+  + [dialogButton/index.tsx](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/components/dialogButton/index.tsx)
+  + [fantasyMovieForm/index.tsx lines: 22-23, 38, 67-117, 333-341, 371](https://github.com/Ruslan-Zhabskyi/MoviesAppAssignment/blob/master/src/components/fantasyMovieForm/index.tsx)

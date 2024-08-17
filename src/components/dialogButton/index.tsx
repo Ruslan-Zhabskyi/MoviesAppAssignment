@@ -96,7 +96,7 @@ const CustomizedDialogs: React.FC<BaseFantasyMovieProps> = (fantasy) => {
                 open={open}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Here is GenAI generated title to explain idea to tech savvy person
+                    Here is GenAI generated title
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
