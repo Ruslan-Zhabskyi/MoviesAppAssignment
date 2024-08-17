@@ -4,7 +4,7 @@
 
 __Name:__ Ruslan Zhabskyi
 
-__Video Demo:__ [ Edit YouTube](https://youtube.com)
+__Video Demo:__ [Link](https://youtu.be/Vi6neBZLCFM)
 
 This repository contains an implementation of the Movie Fans Web Application using the React library. 
 
